@@ -1,4 +1,4 @@
-package org.example.auth;
+package org.example.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,8 +6,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class AuthMain {
+public class GatewayMain {
     public static void main(String[] args) {
-        SpringApplication.run(AuthMain.class, args);
+        SpringApplication.run(GatewayMain.class, args);
     }
 }
