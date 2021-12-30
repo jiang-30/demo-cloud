@@ -13,3 +13,8 @@ spring:
         file-extension: yaml
   profiles:
     active: dev
+mybatis:
+  mapper-locations: classpath:com/example/platform/dao/*.xml
+  type-aliases-package: com.example.platform.dao
+  configuration:
+    map-underscore-to-camel-case: true

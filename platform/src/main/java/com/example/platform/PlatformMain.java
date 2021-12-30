@@ -8,14 +8,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-@EnableDiscoveryClient
 public class PlatformMain {
 
-    @Bean
-    @LoadBalanced
-    public RestTemplate getRestTemplate(){
-        return new RestTemplate();
-    }
+//    @Bean
+//    @LoadBalanced
+//    public RestTemplate getRestTemplate(){
+//        return new RestTemplate();
+//    }
 
     public static void main(String[] args) {
         SpringApplication.run(PlatformMain.class, args);
