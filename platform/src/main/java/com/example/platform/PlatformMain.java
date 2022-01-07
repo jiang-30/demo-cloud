@@ -17,6 +17,8 @@ public class PlatformMain {
 //    }
 
     public static void main(String[] args) {
+        float a = 3;
+        System.out.println(a);
         SpringApplication.run(PlatformMain.class, args);
     }
 }
