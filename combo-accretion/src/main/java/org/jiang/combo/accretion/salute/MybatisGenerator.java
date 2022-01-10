@@ -13,7 +13,7 @@ public class MybatisGenerator {
     public static void main(String[] args) throws Exception {
         List<String> warnings = new ArrayList<String>();
         boolean overwrite = true;
-        File configFile = new File("/Users/jiangbo/project/combo-cloud/combo-accretion/target/classes/mybatisGeneratorConfig.xml");
+        File configFile = new File("E:\\project\\demo-cloud\\combo-accretion/target/classes/mybatisGeneratorConfig.xml");
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = cp.parseConfiguration(configFile);
         DefaultShellCallback callback = new DefaultShellCallback(overwrite);

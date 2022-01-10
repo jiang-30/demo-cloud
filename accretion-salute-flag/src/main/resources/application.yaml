@@ -1,9 +1,0 @@
-server:
-  port: 10100
-
-spring:
-  datasource:
-    url: jdbc:mysql://39.104.48.239:3306/base_test
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: Root1234@

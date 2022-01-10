@@ -1,7 +1,36 @@
-package org.jiang.accretion.salute.flag.service;
+package org.jiang.combo.accretion.salute.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.jiang.combo.accretion.salute.entity.Message;
+import org.jiang.combo.accretion.salute.mapper.MessageMapper;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+@Service
 public class MessageService {
+
+    @Resource
+    MessageMapper messageMapper;
+
+    public PageInfo getMessagePage(Integer current, Integer size) {
+        PageHelper.startPage(current, size);
+        List<Message> messageList = messageMapper.selectAll();
+        PageInfo pageInfo = new PageInfo(messageList);
+        return pageInfo;
+    }
+
+
+    public Integer  createMessage(Message message) {
+        Integer count = messageMapper.insert(message);
+        return count;
+    }
+
 }
+
+
 //
 //'use strict';
 //

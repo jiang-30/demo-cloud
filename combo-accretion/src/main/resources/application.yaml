@@ -1,5 +1,5 @@
 server:
-  port: 10000
+  port: 10100
 
 logging:
   level:
@@ -7,7 +7,7 @@ logging:
 
 spring:
   datasource:
-    url: jdbc:mysql://39.104.48.239:3306/accretion_salute_flag
+    url: jdbc:mysql://39.104.48.239:3306/accretion_project
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: Root1234@
