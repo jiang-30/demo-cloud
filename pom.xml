@@ -4,14 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
-    <artifactId>demo-cloud</artifactId>
+    <groupId>org.jiang.combo</groupId>
+    <artifactId>combo-cloud</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>auth</module>
-        <module>common</module>
-        <module>gateway</module>
-        <module>platform</module>
+        <module>combo-auth</module>
+        <module>combo-common</module>
+        <module>combo-gateway</module>
+        <module>combo-platform</module>
+        <module>accretion-salute-flag</module>
+        <module>combo-accretion</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -42,6 +44,11 @@
                 <version>2.2.6.RELEASE </version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>2.2.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

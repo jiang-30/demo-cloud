@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.jiang.combo.platform.mapper.UserMapper">
+    <resultMap id="cUser" type="org.jiang.combo.platform.entity.User">
+        <id column="id" property="id"></id>
+        <result column="username" property="uname"></result>
+    </resultMap>
+
+
+
+    <select id="selectById" resultType="org.jiang.combo.platform.entity.User">
+        select id, username, password, email
+        from t_user
+        <where>
+            <if test="id != null and username != ''"> OR id = #{id}</if>
+            <if test="username != null and username != ''"> OR username = #{username}</if>
+        </where>
+
+
+    </select>
+</mapper>

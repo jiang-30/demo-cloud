@@ -1,0 +1,22 @@
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="simple" targetRuntime="MyBatis3Simple">
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://39.104.48.239:3306/accretion_salute_flag"
+                        userId="root"
+                        password="Root1234@" />
+
+        <javaModelGenerator targetPackage="org.jiang.combo.accretion.salute.entity"
+                            targetProject="/Users/jiangbo/project/combo-cloud/combo-accretion/src/main/java"/>
+
+        <sqlMapGenerator targetPackage="org.jiang.combo.accretion.salute.mapper"
+                         targetProject="/Users/jiangbo/project/combo-cloud/combo-accretion/src/main/java"/>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="org.jiang.combo.accretion.salute.mapper"
+                             targetProject="/Users/jiangbo/project/combo-cloud/combo-accretion/src/main/java"/>
+
+        <table tableName="message" />
+    </context>
+</generatorConfiguration>
