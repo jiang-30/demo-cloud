@@ -8,7 +8,7 @@ import lombok.Data;
 @TableName("t_user")
 @Data
 public class User {
-    @TableId(type = IdType.AUTO)
+    @TableId(type = IdType.ASSIGN_UUID)
     private int id;
     private String username;
     private String email;
