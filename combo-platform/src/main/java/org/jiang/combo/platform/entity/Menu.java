@@ -13,8 +13,8 @@ import io.swagger.annotations.ApiModelProperty;
  * 
  * </p>
  *
- * @author baomidou1
- * @since 2022-01-11
+ * @author 作者
+ * @since 2022-01-12
  */
 @TableName("s_menu")
 @ApiModel(value = "Menu对象", description = "")

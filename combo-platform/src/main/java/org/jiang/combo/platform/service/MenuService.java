@@ -8,9 +8,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  *  服务类
  * </p>
  *
- * @author baomidou1
- * @since 2022-01-11
+ * @author 作者
+ * @since 2022-01-12
  */
-public interface IMenuService extends IService<Menu> {
+public interface MenuService extends IService<Menu> {
 
 }
