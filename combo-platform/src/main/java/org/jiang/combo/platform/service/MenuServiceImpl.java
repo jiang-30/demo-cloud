@@ -16,5 +16,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements MenuService {
-
+    @Override
+    public Menu getTree(Integer id) {
+        baseMapper.getTree(id);
+        return null;
+    }
 }

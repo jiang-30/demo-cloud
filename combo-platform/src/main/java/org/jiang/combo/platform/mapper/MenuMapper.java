@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2022-01-12
  */
 public interface MenuMapper extends BaseMapper<Menu> {
-
+    Menu getTree(Integer id);
 }
