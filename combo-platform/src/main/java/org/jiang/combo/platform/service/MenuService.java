@@ -9,10 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author 作者
- * @since 2022-01-12
+ * @since 2022-01-20
  */
 public interface MenuService extends IService<Menu> {
-
-    Menu getTree(Integer id);
 
 }

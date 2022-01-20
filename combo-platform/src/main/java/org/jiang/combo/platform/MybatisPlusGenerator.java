@@ -1,10 +1,6 @@
 package org.jiang.combo.platform;
 
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
-import com.baomidou.mybatisplus.generator.config.OutputFile;
-import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
-
-import java.util.Collections;
 
 public class MybatisPlusGenerator {
     public static void main(String[] args) {

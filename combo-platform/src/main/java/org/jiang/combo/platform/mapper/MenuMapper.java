@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author 作者
- * @since 2022-01-12
+ * @since 2022-01-20
  */
 public interface MenuMapper extends BaseMapper<Menu> {
-    Menu getTree(Integer id);
+
 }

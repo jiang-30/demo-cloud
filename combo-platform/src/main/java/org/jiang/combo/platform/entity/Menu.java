@@ -14,7 +14,7 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author 作者
- * @since 2022-01-12
+ * @since 2022-01-20
  */
 @TableName("s_menu")
 @ApiModel(value = "Menu对象", description = "")
@@ -38,7 +38,7 @@ public class Menu implements Serializable {
     private Integer updatedBy;
 
     @ApiModelProperty("描述")
-    private String desc;
+    private String description;
 
     @ApiModelProperty("标识")
     private String code;
@@ -118,11 +118,11 @@ public class Menu implements Serializable {
     }
 
     public String getDesc() {
-        return desc;
+        return description;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc;
+        this.description = desc;
     }
 
     public String getCode() {
@@ -229,7 +229,7 @@ public class Menu implements Serializable {
         ", updatedAt=" + updatedAt +
         ", createdBy=" + createdBy +
         ", updatedBy=" + updatedBy +
-        ", desc=" + desc +
+        ", description=" + description +
         ", code=" + code +
         ", title=" + title +
         ", icon=" + icon +
