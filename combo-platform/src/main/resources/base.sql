@@ -5,17 +5,17 @@ USE `combo_project`;
 
 /**
  * 用户表
+    `login_time` datetime(6) DEFAULT NULL COMMENT '最后登录时间',
+    `login_ip` varchar(15) DEFAULT NULL COMMENT '最后登录ip',
  */
 drop table if EXISTS `s_user`;
 CREATE TABLE `s_user` (
     `id` int NOT NULL AUTO_INCREMENT COMMENT '主键id',
-    `created_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
-    `updated_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+    `created_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+    `updated_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
     `created_by` int DEFAULT NULL COMMENT '创建人',
     `updated_by` int DEFAULT NULL COMMENT '更新人',
-    `delete_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除状态: 1 已删；0 未删',
-    `login_at` datetime(6) DEFAULT NULL COMMENT '最后登录时间',
-    `login_ip` varchar(15) DEFAULT NULL COMMENT '最后登录ip',
+    `deleted_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除状态: 1 已删；0 未删',
     `username` varchar(20) NOT NULL COMMENT '用户名',
     `password` varchar(32) NOT NULL COMMENT '登录密码',
     `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
@@ -32,19 +32,19 @@ CREATE TABLE `s_user` (
 drop table if EXISTS `s_platform`;
 CREATE TABLE `s_platform` (
     `id` int NOT NULL AUTO_INCREMENT COMMENT '主键id',
-    `created_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
-    `updated_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+    `created_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+    `updated_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
     `created_by` int DEFAULT NULL COMMENT '创建人',
     `updated_by` int DEFAULT NULL COMMENT '更新人',
-    `delete_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除状态: 1 已删；0 未删',
+    `deleted_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除状态: 1 已删；0 未删',
     `name` varchar(20) NOT NULL COMMENT '平台名称',
     `code` varchar(20) NOT NULL COMMENT '平台标识',
     `description` varchar(255) NOT NULL COMMENT '平台描述',
-    `order` int NOT NULL COMMENT '排序',
+    `sort` int NOT NULL COMMENT '排序',
     `status` char(1) NOT NULL DEFAULT '1' COMMENT '状态: 1 启用；0 禁用',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT'平台';
-INSERT INTO s_platform(name, code, description) VALUES('管理平台', 'ADMIN', '管理平台');
+INSERT INTO s_platform(name, code, description, sort) VALUES('管理平台', 'ADMIN', '管理平台', 1);
 
 
 /**
@@ -65,14 +65,14 @@ CREATE TABLE `r_user_platform` (
 drop table if EXISTS `s_department`;
 CREATE TABLE `s_department` (
     `id` int NOT NULL AUTO_INCREMENT COMMENT '主键id',
-    `created_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
-    `updated_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+    `created_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+    `updated_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
     `created_by` int DEFAULT NULL COMMENT '创建人',
     `updated_by` int DEFAULT NULL COMMENT '更新人',
-    `delete_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除状态: 1 已删；0 未删',
+    `deleted_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除状态: 1 已删；0 未删',
     `name` varchar(20) NOT NULL COMMENT '部门名称',
     `description` varchar(255) NOT NULL COMMENT '部门描述',
-    `order` int NOT NULL COMMENT '排序',
+    `sort` int NOT NULL COMMENT '排序',
     `status` char(1) NOT NULL DEFAULT '1' COMMENT '状态: 1 启用；0 禁用',
     `parent_id` int DEFAULT NULL COMMENT '父ID',
     PRIMARY KEY (`id`)
@@ -85,19 +85,19 @@ CREATE TABLE `s_department` (
 drop table if EXISTS `s_role`;
 CREATE TABLE `s_role` (
     `id` int NOT NULL AUTO_INCREMENT COMMENT '主键id',
-    `created_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
-    `updated_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+    `created_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+    `updated_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
     `created_by` int DEFAULT NULL COMMENT '创建人',
     `updated_by` int DEFAULT NULL COMMENT '更新人',
-    `delete_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除状态: 1 已删；0 未删',
+    `deleted_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除状态: 1 已删；0 未删',
     `name` varchar(20) NOT NULL COMMENT '角色名称',
     `code` varchar(20) NOT NULL COMMENT '角色标识',
     `description` varchar(255) NOT NULL COMMENT '角色描述',
-    `order` int NOT NULL COMMENT '排序',
+    `sort` int NOT NULL COMMENT '排序',
     `status` char(1) NOT NULL DEFAULT '1' COMMENT '状态: 1 启用；0 禁用',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT'角色';
-INSERT INTO s_role(name, code, description) VALUES('系统管理员', 'ADMIN', '系统超级管理员');
+INSERT INTO s_role(name, code, description, sort) VALUES('系统管理员', 'ADMIN', '系统超级管理员', 1);
 
 
 /**
@@ -106,23 +106,22 @@ INSERT INTO s_role(name, code, description) VALUES('系统管理员', 'ADMIN', '
 drop table if EXISTS `s_menu`;
 CREATE TABLE `s_menu` (
     `id` int NOT NULL AUTO_INCREMENT COMMENT '主键id',
-    `created_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
-    `updated_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+    `created_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+    `updated_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
     `created_by` int DEFAULT NULL COMMENT '创建人',
     `updated_by` int DEFAULT NULL COMMENT '更新人',
-    `delete_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除状态: 1 已删；0 未删',
-    `desc` varchar(255) DEFAULT NULL COMMENT '描述',
-    `code` varchar(50) NOT NULL COMMENT '标识',
-    `title` varchar(10) NOT NULL COMMENT '名称',
+    `deleted_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除状态: 1 已删；0 未删',
+    `name` varchar(10) NOT NULL COMMENT '名称',
+    `description` varchar(255) DEFAULT NULL COMMENT '描述',
     `icon` varchar(50) DEFAULT NULL COMMENT '菜单图标',
     `path` varchar(100) DEFAULT NULL COMMENT '路由路径',
     `component` varchar(100) DEFAULT NULL COMMENT '组件路径',
-    `type` enum('1','2','3') NOT NULL DEFAULT '2' COMMENT '类型',
-    `show_menu` enum('0','1') NOT NULL DEFAULT '1' COMMENT '是否在菜单栏显示',
-    `keep_alive` enum('0','1') NOT NULL DEFAULT '0' COMMENT '组件是否缓存',
-    `layout` varchar(50) NOT NULL DEFAULT 'default' COMMENT '页面布局类型',
-    `sort` int NOT NULL DEFAULT '100' COMMENT '排序',
-    `permission` varchar(100) DEFAULT NULL COMMENT '权限标识',
+    `target` char(1)  DEFAULT NULL COMMENT '页面布局类型,打开新窗口',
+    `type` char(1) DEFAULT NULL COMMENT '类型：1 目录，2 菜单；3 按钮',
+    `visible` char(1) DEFAULT NULL COMMENT '是否在菜单栏显示：1 显示 0 不显示',
+    `keep_alive` char(1) DEFAULT NULL COMMENT '组件是否缓存: 1 缓存；0 不缓存',
+    `sort` int NOT NULL COMMENT '排序',
+    `permission` varchar(255) DEFAULT NULL COMMENT '权限标识',
     `parent_id` int DEFAULT NULL COMMENT '父id',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT'系统菜单';
@@ -167,11 +166,11 @@ CREATE TABLE `r_role_department` (
 DROP TABLE IF EXISTS `s_dict`;
 CREATE TABLE `s_dict` (
     `id` int NOT NULL AUTO_INCREMENT COMMENT '主键id',
-    `created_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
-    `updated_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+    `created_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+    `updated_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
     `created_by` int DEFAULT NULL COMMENT '创建人',
     `updated_by` int DEFAULT NULL COMMENT '更新人',
-    `delete_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除状态: 1 已删；0 未删',
+    `deleted_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除状态: 1 已删；0 未删',
     `name` varchar(20) NOT NULL COMMENT '字典名称',
     `code` varchar(20) NOT NULL COMMENT '字典标识',
     `description` varchar(255) NOT NULL COMMENT '字典描述',
@@ -185,16 +184,16 @@ CREATE TABLE `s_dict` (
 DROP TABLE IF EXISTS `s_dict_item`;
 CREATE TABLE `s_dict_item` (
       `id` int NOT NULL AUTO_INCREMENT COMMENT '主键id',
-      `created_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
-      `updated_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+      `created_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+      `updated_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
       `created_by` int DEFAULT NULL COMMENT '创建人',
       `updated_by` int DEFAULT NULL COMMENT '更新人',
-      `delete_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除状态: 1 已删；0 未删',
+      `deleted_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除状态: 1 已删；0 未删',
       `dict_id` int NOT NULL  COMMENT '字典id',
       `label` varchar(20) NOT NULL COMMENT '字典项名称',
       `value` varchar(20) NOT NULL COMMENT '字典项标识',
       `description` varchar(255) NOT NULL COMMENT '字典描述',
-      `order` int NOT NULL COMMENT '排序',
+      `sort` int NOT NULL COMMENT '排序',
       `status` char(1) NOT NULL DEFAULT '1' COMMENT '状态: 1 启用；0 禁用',
       PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT'字典项';

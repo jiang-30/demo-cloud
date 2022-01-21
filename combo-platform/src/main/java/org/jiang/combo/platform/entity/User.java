@@ -14,7 +14,7 @@ import lombok.Setter;
 
 /**
  * <p>
- * 系统菜单
+ * 登录用户信息表
  * </p>
  *
  * @author combo
@@ -22,9 +22,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName("s_menu")
-@ApiModel(value = "Menu对象", description = "系统菜单")
-public class Menu {
+@TableName("s_user")
+@ApiModel(value = "User对象", description = "登录用户信息表")
+public class User {
 
     @ApiModelProperty("主键id")
     @TableId(value = "id", type = IdType.AUTO)
@@ -51,53 +51,29 @@ public class Menu {
     @TableLogic
     private String deletedFlag;
 
-    @ApiModelProperty("名称")
-    @TableField("name")
-    private String name;
+    @ApiModelProperty("用户名")
+    @TableField("username")
+    private String username;
 
-    @ApiModelProperty("描述")
-    @TableField("description")
-    private String description;
+    @ApiModelProperty("登录密码")
+    @TableField("password")
+    private String password;
 
-    @ApiModelProperty("菜单图标")
-    @TableField("icon")
-    private String icon;
+    @ApiModelProperty("邮箱")
+    @TableField("email")
+    private String email;
 
-    @ApiModelProperty("路由路径")
-    @TableField("path")
-    private String path;
+    @ApiModelProperty("手机号码")
+    @TableField("phone")
+    private String phone;
 
-    @ApiModelProperty("组件路径")
-    @TableField("component")
-    private String component;
+    @ApiModelProperty("部门ID")
+    @TableField("department_id")
+    private Integer departmentId;
 
-    @ApiModelProperty("页面布局类型,打开新窗口")
-    @TableField("target")
-    private String target;
-
-    @ApiModelProperty("类型：1 目录，2 菜单；3 按钮")
-    @TableField("type")
-    private String type;
-
-    @ApiModelProperty("是否在菜单栏显示：1 显示 0 不显示")
-    @TableField("visible")
-    private String visible;
-
-    @ApiModelProperty("组件是否缓存: 1 缓存；0 不缓存")
-    @TableField("keep_alive")
-    private String keepAlive;
-
-    @ApiModelProperty("排序")
-    @TableField("sort")
-    private Integer sort;
-
-    @ApiModelProperty("权限标识")
-    @TableField("permission")
-    private String permission;
-
-    @ApiModelProperty("父id")
-    @TableField("parent_id")
-    private Integer parentId;
+    @ApiModelProperty("状态: 1 启用；0 禁用")
+    @TableField("status")
+    private String status;
 
 
 }

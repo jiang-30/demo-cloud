@@ -14,7 +14,7 @@ import lombok.Setter;
 
 /**
  * <p>
- * 系统菜单
+ * 字典
  * </p>
  *
  * @author combo
@@ -22,9 +22,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName("s_menu")
-@ApiModel(value = "Menu对象", description = "系统菜单")
-public class Menu {
+@TableName("s_dict")
+@ApiModel(value = "Dict对象", description = "字典")
+public class Dict {
 
     @ApiModelProperty("主键id")
     @TableId(value = "id", type = IdType.AUTO)
@@ -51,53 +51,21 @@ public class Menu {
     @TableLogic
     private String deletedFlag;
 
-    @ApiModelProperty("名称")
+    @ApiModelProperty("字典名称")
     @TableField("name")
     private String name;
 
-    @ApiModelProperty("描述")
+    @ApiModelProperty("字典标识")
+    @TableField("code")
+    private String code;
+
+    @ApiModelProperty("字典描述")
     @TableField("description")
     private String description;
 
-    @ApiModelProperty("菜单图标")
-    @TableField("icon")
-    private String icon;
-
-    @ApiModelProperty("路由路径")
-    @TableField("path")
-    private String path;
-
-    @ApiModelProperty("组件路径")
-    @TableField("component")
-    private String component;
-
-    @ApiModelProperty("页面布局类型,打开新窗口")
-    @TableField("target")
-    private String target;
-
-    @ApiModelProperty("类型：1 目录，2 菜单；3 按钮")
-    @TableField("type")
-    private String type;
-
-    @ApiModelProperty("是否在菜单栏显示：1 显示 0 不显示")
-    @TableField("visible")
-    private String visible;
-
-    @ApiModelProperty("组件是否缓存: 1 缓存；0 不缓存")
-    @TableField("keep_alive")
-    private String keepAlive;
-
-    @ApiModelProperty("排序")
-    @TableField("sort")
-    private Integer sort;
-
-    @ApiModelProperty("权限标识")
-    @TableField("permission")
-    private String permission;
-
-    @ApiModelProperty("父id")
-    @TableField("parent_id")
-    private Integer parentId;
+    @ApiModelProperty("状态: 1 启用；0 禁用")
+    @TableField("status")
+    private String status;
 
 
 }

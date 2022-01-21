@@ -1,19 +1,23 @@
 package org.jiang.combo.platform;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
+import com.baomidou.mybatisplus.generator.fill.Column;
 
 public class MybatisPlusGenerator {
     public static void main(String[] args) {
 
         FastAutoGenerator.create("jdbc:mysql://39.104.48.239:3306/combo_project", "root", "Root1234@")
                 .globalConfig(builder -> {
-                    builder.enableSwagger() // 开启 swagger 模式
-                            .fileOverride() // 覆盖已生成文件
-                            .outputDir("E:\\project\\demo-cloud\\combo-platform\\src\\main\\java") //-- 指定输出目录 -- 工程路径 + src/main/java
-                            .disableOpenDir();
+                    builder.fileOverride()
+                            .enableSwagger()
+                            .disableOpenDir()
+                            .author("combo")
+                            .outputDir("E:\\project\\demo-cloud\\combo-platform\\src\\main\\java");
                 })
                 .packageConfig(builder -> {
-                    builder.parent("org.jiang.combo.platform") //-- 设置父包名
+                    builder.parent("org.jiang.combo.platform")
                             .entity("entity")
                             .mapper("mapper")
                             .xml("mapper")
@@ -21,11 +25,23 @@ public class MybatisPlusGenerator {
                             .serviceImpl("service");
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("s_menu") // 设置需要生成的表名
+                    builder.addInclude("s_user", "s_platform", "s_department", "s_role", "s_menu", "s_dict", "s_dict_item")
                             .addTablePrefix("s_") // 设置过滤表前缀
                             .enableCapitalMode()
+                            .entityBuilder()
+                                .enableLombok()
+                                .disableSerialVersionUID()
+                                .enableTableFieldAnnotation()
+                                .logicDeleteColumnName("deleted_flag")
+                                .addTableFills(new Column("created_time", FieldFill.INSERT), new Column("created_by", FieldFill.INSERT), new Column("updated_time", FieldFill.INSERT_UPDATE), new Column("updated_by", FieldFill.INSERT_UPDATE))
+                                .idType(IdType.AUTO)
+                            .controllerBuilder()
+                                .enableRestStyle()
                             .serviceBuilder()
-                            .formatServiceFileName("%sService");
+                                .formatServiceFileName("%sService")
+                            .mapperBuilder()
+                                .enableBaseResultMap()
+                                .enableBaseColumnList();
                 })
                 .execute();
     }
