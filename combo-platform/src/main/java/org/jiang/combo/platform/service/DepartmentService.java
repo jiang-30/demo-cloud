@@ -3,6 +3,8 @@ package org.jiang.combo.platform.service;
 import org.jiang.combo.platform.entity.Department;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 平台 服务类
@@ -13,4 +15,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface DepartmentService extends IService<Department> {
 
+    /**
+     *
+     * @param pId
+     * @return
+     */
+    List<Department> getTree(Integer pId);
 }

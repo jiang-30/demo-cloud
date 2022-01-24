@@ -1,12 +1,12 @@
 package org.jiang.combo.platform.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -31,11 +31,13 @@ public class Dict {
     private Integer id;
 
     @ApiModelProperty("创建时间")
-    @TableField(value = "created_time", fill = FieldFill.INSERT)
+    @JsonFormat(pattern = "yyyy-MM-dd HH-mm-ss")
+    @TableField(value = "created_time", insertStrategy = FieldStrategy.NEVER, updateStrategy = FieldStrategy.NEVER)
     private LocalDateTime createdTime;
 
     @ApiModelProperty("更新时间")
-    @TableField(value = "updated_time", fill = FieldFill.INSERT_UPDATE)
+    @JsonFormat(pattern = "yyyy-MM-dd HH-mm-ss")
+    @TableField(value = "updated_time", insertStrategy = FieldStrategy.NEVER, updateStrategy = FieldStrategy.NEVER)
     private LocalDateTime updatedTime;
 
     @ApiModelProperty("创建人")
@@ -47,7 +49,8 @@ public class Dict {
     private Integer updatedBy;
 
     @ApiModelProperty("删除状态: 1 已删；0 未删")
-    @TableField("deleted_flag")
+    @JsonIgnore
+    @TableField(value = "deleted_flag", insertStrategy = FieldStrategy.NEVER, updateStrategy = FieldStrategy.NEVER)
     @TableLogic
     private String deletedFlag;
 
@@ -64,8 +67,10 @@ public class Dict {
     private String description;
 
     @ApiModelProperty("状态: 1 启用；0 禁用")
-    @TableField("status")
+    @TableField(value = "status", insertStrategy = FieldStrategy.NOT_EMPTY, updateStrategy = FieldStrategy.NOT_EMPTY)
     private String status;
 
-
+    @ApiModelProperty("字典项")
+    @TableField(exist = false)
+    private List<DictItem> items;
 }

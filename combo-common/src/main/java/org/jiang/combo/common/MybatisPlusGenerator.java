@@ -1,4 +1,4 @@
-package org.jiang.combo.platform;
+package org.jiang.combo.common;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -26,14 +26,14 @@ public class MybatisPlusGenerator {
                 })
                 .strategyConfig(builder -> {
                     builder.addInclude("s_user", "s_platform", "s_department", "s_role", "s_menu", "s_dict", "s_dict_item")
-                            .addTablePrefix("s_") // 设置过滤表前缀
+                            .addTablePrefix("s_")
                             .enableCapitalMode()
                             .entityBuilder()
                                 .enableLombok()
                                 .disableSerialVersionUID()
                                 .enableTableFieldAnnotation()
                                 .logicDeleteColumnName("deleted_flag")
-                                .addTableFills(new Column("created_time", FieldFill.INSERT), new Column("created_by", FieldFill.INSERT), new Column("updated_time", FieldFill.INSERT_UPDATE), new Column("updated_by", FieldFill.INSERT_UPDATE))
+                                .addTableFills(new Column("created_by", FieldFill.INSERT),  new Column("updated_by", FieldFill.INSERT_UPDATE))
                                 .idType(IdType.AUTO)
                             .controllerBuilder()
                                 .enableRestStyle()

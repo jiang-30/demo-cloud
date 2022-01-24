@@ -18,8 +18,27 @@
     </resultMap>
 
     <!-- 通用查询结果列 -->
+    <resultMap id="TreeResultMap" extends="BaseResultMap" type="org.jiang.combo.platform.entity.Department">
+        <collection property="children" column="id" select="getTree"></collection>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, created_time, updated_time, created_by, updated_by, deleted_flag, name, description, sort, status, parent_id
     </sql>
 
+    <!-- 通用查询结果列 -->
+    <select id="getTree" resultMap="TreeResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from s_department
+        where
+            <if test="pId == null">
+                parent_id is null
+            </if>
+            <if test="pId != null">
+                parent_id = #{pId}
+            </if>
+        order by sort
+    </select>
 </mapper>

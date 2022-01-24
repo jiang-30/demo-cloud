@@ -24,9 +24,28 @@
         <result column="parent_id" property="parentId" />
     </resultMap>
 
+    <!--  -->
+    <resultMap id="TreeResultMap" extends="BaseResultMap" type="org.jiang.combo.platform.entity.Menu">
+        <collection property="children" ofType="org.jiang.combo.platform.entity.Menu" column="id" select="getTree"></collection>
+    </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, created_time, updated_time, created_by, updated_by, deleted_flag, name, description, icon, path, component, target, type, visible, keep_alive, sort, permission, parent_id
     </sql>
+
+    <select id="getTree" resultMap="TreeResultMap">
+        select
+            <include refid="Base_Column_List"></include>
+        from s_menu
+        where
+        <if test="pId == null">
+            parent_id is null
+        </if>
+        <if test="pId != null">
+            parent_id = #{pId}
+        </if>
+        order by sort
+    </select>
 
 </mapper>

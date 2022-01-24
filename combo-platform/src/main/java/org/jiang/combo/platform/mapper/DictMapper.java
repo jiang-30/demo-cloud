@@ -1,7 +1,10 @@
 package org.jiang.combo.platform.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.jiang.combo.platform.entity.Dict;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2022-01-21
  */
 public interface DictMapper extends BaseMapper<Dict> {
+    Dict getItems(@Param("id") Integer id);
 
+    List<Dict> getListItems();
 }

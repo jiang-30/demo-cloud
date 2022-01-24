@@ -6,6 +6,8 @@ import org.jiang.combo.platform.service.DictService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 字典 服务实现类
@@ -16,5 +18,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements DictService {
+    @Override
+    public Dict getItems(Integer id) {
+        return baseMapper.getItems(id);
+    }
 
+    @Override
+    public List<Dict> getListItems() {
+        return baseMapper.getListItems();
+    }
 }

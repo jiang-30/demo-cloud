@@ -3,8 +3,8 @@ server:
 
 spring:
   application:
-    name: auth-server
-  cloud:
-    nacos:
-      discovery:
-        server-addr: localhost:8848
+    name: combo-auth
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: localhost:8848

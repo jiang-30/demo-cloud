@@ -1,7 +1,10 @@
 package org.jiang.combo.platform.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.jiang.combo.platform.entity.Menu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2022-01-21
  */
 public interface MenuMapper extends BaseMapper<Menu> {
-
+    List<Menu> getTree(@Param("pId") Integer pId);
 }
