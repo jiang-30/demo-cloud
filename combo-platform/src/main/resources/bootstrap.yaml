@@ -1,6 +1,7 @@
 server:
   port: 9200
 
+# 日志 配置对应包的debug级别
 logging:
   level:
     org.jiang.combo.platform.mapper: debug
