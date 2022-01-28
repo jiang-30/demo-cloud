@@ -1,10 +1,15 @@
 server:
   port: 9100
 
+logging:
+  level:
+    org.springframework.jdbc.core: debug
+
 spring:
   application:
     name: combo-auth
-#  cloud:
-#    nacos:
-#      discovery:
-#        server-addr: localhost:8848
+  datasource:
+    url: jdbc:mysql://39.104.48.239:3306/combo_project
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Root1234@

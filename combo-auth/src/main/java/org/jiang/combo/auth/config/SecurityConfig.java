@@ -1,5 +1,7 @@
 package org.jiang.combo.auth.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.jiang.combo.auth.filter.SecutityRestAuthenticationFilter;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -9,14 +11,31 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.sql.DataSource;
+
+@RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final ObjectMapper objectMapper;
+    private final DataSource dataSource;
 
     public  SecutityRestAuthenticationFilter secutityRestAuthenticationFilter() throws Exception {
         SecutityRestAuthenticationFilter filter = new SecutityRestAuthenticationFilter();
         filter.setAuthenticationManager(authenticationManager());
+        filter.setAuthenticationSuccessHandler((request, response, authentication) -> {  // AuthenticationSuccessHandler
+//                        response.setStatus(HttpStatus.);
+//                        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            response.getWriter().println(objectMapper.writeValueAsString(authentication));
+        });
+        filter.setAuthenticationFailureHandler((request, response, exception) -> {
+
+            response.getWriter().println(objectMapper.writeValueAsString(exception));
+        });
+
         filter.setFilterProcessesUrl("/auth");
 
         return filter;
@@ -26,12 +45,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         /**
+         * 拦截那些请求
+         * 多配置时候使用
+         */
+//        http
+//                .requestMatchers();
+
+        /**
          *
          */
         http
                 .authorizeRequests(request -> {
                     request
-                            .antMatchers("/authorize/**", "/error").permitAll()
+                            .antMatchers("/authorize/**").permitAll()
                             .anyRequest().authenticated();
                 })
                 .addFilter(secutityRestAuthenticationFilter())
@@ -103,8 +129,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user").password(passwordEncoder().encode("123456")).roles("ADMIN", "USER");
+        auth
+                .jdbcAuthentication()
+                .dataSource(dataSource)
+                .usersByUsernameQuery("select username, password, status as enabled from s_user where username = ?")
+                .authoritiesByUsernameQuery("select u.username as username,  r.code as authority from  s_user u left join r_user_role  userRole on u.id = userRole.user_id left join s_role r on userRole.role_id = r.id where u.username = ?")
+                .passwordEncoder(passwordEncoder());
+//                .inMemoryAuthentication()
+//                .withUser("user").password(passwordEncoder().encode("123456")).disabled(true).roles("ADMIN", "USER")
+//                .and().withUser("user1").password(passwordEncoder().encode("123456")).roles("ADMIN")
+        ;
+
     }
 
     @Bean
@@ -112,6 +147,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        Pbkdf2PasswordEncoder()
 //        MessageDigestPasswordEncoder // md5 sha-1
 //        Encoder
-        return new BCryptPasswordEncoder();
+//        return new BCryptPasswordEncoder();
+        return NoOpPasswordEncoder.getInstance();
     }
 }

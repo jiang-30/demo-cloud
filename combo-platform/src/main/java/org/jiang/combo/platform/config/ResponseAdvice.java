@@ -1,9 +1,8 @@
 package org.jiang.combo.platform.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.jiang.combo.platform.dto.Result;
+import org.jiang.combo.common.response.R;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,6 +13,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
+
+import javax.validation.ValidationException;
 
 @RestControllerAdvice
 public class ResponseAdvice implements ResponseBodyAdvice<Object> {
@@ -28,14 +29,14 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         if(body instanceof String) {
             ObjectMapper objectMapper = new ObjectMapper();
-            return  objectMapper.writeValueAsString(Result.success(body));
+            return  objectMapper.writeValueAsString(R.success(body));
         }
 
-        if(body instanceof  Result) {
+        if(body instanceof  R) {
             return  body;
         }
 
-        return Result.success(body);
+        return R.success(body);
     }
 
     /**
@@ -43,8 +44,11 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
      */
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Result exception(Exception e) {
-        return Result.fail(e);
+    public R exception(Exception e) {
+        if( e instanceof ValidationException) {
+            return R.fail(422, "参数校验失败", e);
+        }
+        return R.fail(500, "服务器异常", e);
     }
 
 }

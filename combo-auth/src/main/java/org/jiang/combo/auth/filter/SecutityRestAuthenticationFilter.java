@@ -12,13 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 public class SecutityRestAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 //    private ObjectMapper objectMapper;
 
-    @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-
-        UsernamePasswordAuthenticationToken authenticationToken;
-        authenticationToken = new UsernamePasswordAuthenticationToken("user", "123456");
-
-        System.out.println("filter;" + authenticationToken);
-        return this.getAuthenticationManager().authenticate(authenticationToken);
-    }
+//    @Override
+//    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+//
+//        UsernamePasswordAuthenticationToken authenticationToken;
+//        authenticationToken = new UsernamePasswordAuthenticationToken("user", "123456");
+//
+//        System.out.println("filter;" + authenticationToken);
+//        setDetails(request, authenticationToken);
+//        return this.getAuthenticationManager().authenticate(authenticationToken);
+//    }
 }

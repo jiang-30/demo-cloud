@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@RequestMapping("/authorize")
 @RestController
+@RequestMapping("/authorize")
 public class AuthorizeController {
 
     @PostMapping("/register")
@@ -16,7 +16,7 @@ public class AuthorizeController {
     }
 
     @GetMapping("/test")
-    public UserDto test( @RequestBody UserDto userDto) {
+    public UserDto test() {
         throw new RuntimeException("sadfjlk");
     }
 }
