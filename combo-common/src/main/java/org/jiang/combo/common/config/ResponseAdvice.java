@@ -1,9 +1,9 @@
-package org.jiang.combo.platform.config;
+package org.jiang.combo.common.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.jiang.combo.platform.dto.Result;
+import org.jiang.combo.common.util.ResultUtil;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,14 +30,14 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         if(body instanceof String) {
-            return  objectMapper.writeValueAsString(Result.success(body));
+            return  objectMapper.writeValueAsString(ResultUtil.success(body));
         }
 
-        if(body instanceof  Result) {
+        if(body instanceof  ResultUtil) {
             return  body;
         }
 
-        return Result.success(body);
+        return ResultUtil.success(body);
     }
 
     /**
@@ -45,8 +45,9 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
      */
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Result exception(Exception e) {
-        return Result.fail(e);
+    public ResultUtil<String> exception(Exception e) {
+        System.out.println(e);
+        return ResultUtil.fail(e);
     }
 
 }

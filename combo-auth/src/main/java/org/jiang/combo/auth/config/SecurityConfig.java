@@ -1,6 +1,6 @@
 package org.jiang.combo.auth.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.jiang.combo.auth.filter.SecutityRestAuthenticationFilter;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,38 +11,51 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    public  SecutityRestAuthenticationFilter secutityRestAuthenticationFilter() throws Exception {
+        SecutityRestAuthenticationFilter filter = new SecutityRestAuthenticationFilter();
+        filter.setAuthenticationManager(authenticationManager());
+        filter.setFilterProcessesUrl("/auth");
+
+        return filter;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         /**
          *
          */
-        http.authorizeRequests(re -> {
-            re.anyRequest().authenticated();
-        });
+        http
+                .authorizeRequests(request -> {
+                    request
+                            .antMatchers("/authorize/**", "/error").permitAll()
+                            .anyRequest().authenticated();
+                })
+                .addFilter(secutityRestAuthenticationFilter())
+        ;
 
         /**
          * 登陆认证 UsernamePasswordAuthenticationFilter
          * AuthenticationSuccessHandler
          */
-        http.formLogin()
-//                .loginPage("/login") // 自定义登陆页的路径
-                .usernameParameter("username") // 自定义登陆表单用户名
-                .passwordParameter("password") // 自定义登陆表单密码名
-                .loginProcessingUrl("/login") // 自定义登陆接口api路径
-//                .successForwardUrl("/home") // 登陆成功后重定向的url
-                .failureForwardUrl("/login/fail") // 登陆失败后重定向的url
-                .successHandler(((request, response, authentication) -> {  // AuthenticationSuccessHandler
-                    ObjectMapper objectMapper = new ObjectMapper();
-//                    response.setStatus(HttpStatus.);
-//                    response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-                    response.getWriter().println(objectMapper.writeValueAsString(authentication));
-                }))
-//                .failureHandler(((request, response, exception) -> {}))
-                .permitAll(); // 跳过认证
+//        http.formLogin()
+//               .loginPage("/login") // 自定义登陆页的路径
+//                .usernameParameter("username") // 自定义登陆表单用户名
+//                .passwordParameter("password") // 自定义登陆表单密码名
+//                .loginProcessingUrl("/auth/auth") // 自定义登陆接口api路径
+////                .successForwardUrl("/home") // 登陆成功后重定向的url
+////                .failureForwardUrl("/login/fail") // 登陆失败后重定向的url
+//                .successHandler(((request, response, authentication) -> {  // AuthenticationSuccessHandler
+//                    ObjectMapper objectMapper = new ObjectMapper();
+////                    response.setStatus(HttpStatus.);
+////                    response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+//                    response.getWriter().println(objectMapper.writeValueAsString(authentication));
+//                }))
+////                .failureHandler(((request, response, exception) -> {}))
+//                .permitAll(); // 跳过认证
 
 
 
@@ -60,7 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          */
         http.csrf(csrf -> {
 //            csrf.csrfTokenRepository();
-//            csrf
+            csrf.disable(); // 禁用 csrf
         });
 
         /**
@@ -96,6 +109,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     PasswordEncoder passwordEncoder() {
+//        Pbkdf2PasswordEncoder()
+//        MessageDigestPasswordEncoder // md5 sha-1
+//        Encoder
         return new BCryptPasswordEncoder();
     }
 }
