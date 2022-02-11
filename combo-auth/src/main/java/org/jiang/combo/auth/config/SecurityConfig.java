@@ -16,8 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
-@RequiredArgsConstructor
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final ObjectMapper objectMapper;
@@ -51,8 +51,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        http
 //                .requestMatchers();
 
+//        http.authorizeHttpRequests()
         /**
-         *
+         * 访问控制 authorizeRequests
+         * 路径
+         * antMatchers ant匹配 可以配置method
+         * regexMatchers() 正则匹配 可以配置method
+         * ? mvcMatcher() 统一前缀 spring.mvc.servlet.path
+         * anyRequest 所有请求
+         * 控制
+         * authenticated() 需要被认证才能访问，permitAll() 任何人都允许访问， denyAll() 不允许被访问, anonymous() 匿名访问匹配的URL 会执行 filter
+         * 特定
+         * hasAuthority(String) 特定的权限
+         * hasAnyAuthority(String ...) 给定权限中某一个
+         * hasRole(String) 给定角色 ROLE_ 开头
+         * hasAnyRole(String ...)
+         * hasIpAddress(String) 如果请求是指定的 IP 就运行访问 可以通过 request.getRemoteAddr()获取 ip 地址。
          */
         http
                 .authorizeRequests(request -> {
@@ -60,10 +74,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             .antMatchers("/authorize/**").permitAll()
                             .anyRequest().authenticated();
                 })
+
                 .addFilter(secutityRestAuthenticationFilter())
         ;
 
         /**
+         * 异常处理
+         * accessDeniedHandler() 访问受限后交处理，访问失败后
+         */
+//        http.exceptionHandling().accessDeniedHandler()
+
+        /**
+         * 表单登录：登录页面，登录路径，重定义登录字段名，登录成功重定向页面或者处理类，登录失败重定向页面或者处理类
          * 登陆认证 UsernamePasswordAuthenticationFilter
          * AuthenticationSuccessHandler
          */
@@ -87,15 +109,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         /**
          * 退出登陆
-         * .logoutSuccessHandler()
+         * .logoutSuccessHandler() 退出成功处理器
+         * .addLogoutHandler()
+         * clearAuthentication(boolean) 是否清除认证状态，默认为 true
+         * invalidateHttpSession(boolean) 是否销毁 HttpSession 对象，默认为 true
          */
         http.logout(logout -> {
             logout
+
                     .logoutUrl("/logout"); // 指定登出的请求路径
         });
 
         /**
          * csrf 攻击
+         *        // csrf配置
+         *         httpSecurity.csrf();
+         *         // 开启跨域共享，跨域伪造请求限制=无效
+         *         httpSecurity.cors().and().csrf().disable();
          */
         http.csrf(csrf -> {
 //            csrf.csrfTokenRepository();
@@ -134,7 +164,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .dataSource(dataSource)
                 .usersByUsernameQuery("select username, password, status as enabled from s_user where username = ?")
                 .authoritiesByUsernameQuery("select u.username as username,  r.code as authority from  s_user u left join r_user_role  userRole on u.id = userRole.user_id left join s_role r on userRole.role_id = r.id where u.username = ?")
-                .passwordEncoder(passwordEncoder());
+                .passwordEncoder(passwordEncoder())
 //                .inMemoryAuthentication()
 //                .withUser("user").password(passwordEncoder().encode("123456")).disabled(true).roles("ADMIN", "USER")
 //                .and().withUser("user1").password(passwordEncoder().encode("123456")).roles("ADMIN")
