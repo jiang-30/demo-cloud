@@ -8,10 +8,9 @@
     <artifactId>combo-cloud</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>combo-auth</module>
         <module>combo-common</module>
         <module>combo-gateway</module>
-        <module>combo-platform</module>
+        <module>combo-admin</module>
         <module>combo-accretion</module>
     </modules>
     <packaging>pom</packaging>
