@@ -10,6 +10,7 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 @Configuration
 @EnableOpenApi
@@ -21,9 +22,9 @@ public class Knife4jConfig {
         return new Docket(DocumentationType.OAS_30)
                 .enable(swaggerEnabled)
                 .apiInfo(apiInfo())
-                .groupName("combo-platform")
+                .groupName("combo-admin")
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("org.jiang.combo.platform.controller"))
+                .apis(RequestHandlerSelectors.basePackage("org.jiang.combo.admin.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

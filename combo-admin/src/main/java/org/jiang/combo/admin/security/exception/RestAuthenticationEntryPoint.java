@@ -17,6 +17,6 @@ public class RestAuthenticationEntryPoint  implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        response.getWriter().write("未登录JSON.toJSONString(responseBody)");
+        response.getWriter().write("未登录 no login； JSON.toJSONString(responseBody)");
     }
 }

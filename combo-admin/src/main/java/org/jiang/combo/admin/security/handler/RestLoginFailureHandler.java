@@ -17,6 +17,6 @@ public class RestLoginFailureHandler  implements AuthenticationFailureHandler {
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        response.getWriter().write("登录失败JSON.toJSONString(responseBody)");
+        response.getWriter().write("登录失败 login failure" + exception.getMessage());
     }
 }

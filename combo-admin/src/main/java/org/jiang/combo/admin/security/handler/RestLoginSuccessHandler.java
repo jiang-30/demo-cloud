@@ -29,6 +29,6 @@ public class RestLoginSuccessHandler  implements AuthenticationSuccessHandler {
 //        String jwtToken = JwtTokenUtil.generateToken(selfUserDetails.getUsername(), 300);
 //        responseBody.setJwtToken(jwtToken);
 
-        response.getWriter().write("登录成功JSON.toJSONString(responseBody");
+        response.getWriter().write("登录成功 login success;JSON.toJSONString(responseBody");
     }
 }

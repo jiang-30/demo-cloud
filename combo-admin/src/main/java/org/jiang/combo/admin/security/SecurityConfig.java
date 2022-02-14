@@ -2,6 +2,10 @@ package org.jiang.combo.admin.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.jiang.combo.admin.security.exception.RestAccessDeniedHandler;
+import org.jiang.combo.admin.security.exception.RestAuthenticationEntryPoint;
+import org.jiang.combo.admin.security.handler.RestLoginFailureHandler;
+import org.jiang.combo.admin.security.handler.RestLoginSuccessHandler;
 import org.jiang.combo.admin.security.handler.SecutityRestAuthenticationFilter;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -52,16 +56,56 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          * 登录失败处理
          * 注销成功处理
          * 注销失败处理
+         * 权限id、权限标识、权限名称、资源名称、资源访问地址
          */
+        http
+                .exceptionHandling(exception -> {
+                    exception
+                            .authenticationEntryPoint(new RestAuthenticationEntryPoint())
+                            .accessDeniedHandler(new RestAccessDeniedHandler());
+                })
+                .csrf(csrf -> {
+                    csrf.disable();
+                })
+//                .sessionManagement(session -> {
+//                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//                })
+                .rememberMe(remember -> {
+                    remember.disable();
+                })
+                .authorizeRequests(request -> {
+                    request
+                            .antMatchers(
+                                    "/swagger-resources/**",
+                                    "/v3/**",
+                                    "/doc.html"
+                            ).permitAll()
+                            .anyRequest().authenticated();
+                })
+                .formLogin(login  -> {
+                    login
+                            .usernameParameter("username")
+                            .passwordParameter("password")
+                            .loginProcessingUrl("/auth/login")
+                            .successHandler(new RestLoginSuccessHandler())
+                            .failureHandler(new RestLoginFailureHandler())
+                            .permitAll();
+                })
+                .logout(logout -> {
+                    logout
+                            .logoutUrl("/auth/logout").permitAll()
+//                    .addLogoutHandler() // 登出处理器
+//                    .logoutSuccessHandler()
+                    ; // 指定登出的请求路径
+                });
 
         /**
          * 拦截那些请求
          * 多配置时候使用
          */
-//        http
-//                .requestMatchers();
-
+//        http.requestMatchers();
 //        http.authorizeHttpRequests()
+
         /**
          * 访问控制 authorizeRequests
          * 路径
@@ -78,48 +122,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          * hasAnyRole(String ...)
          * hasIpAddress(String) 如果请求是指定的 IP 就运行访问 可以通过 request.getRemoteAddr()获取 ip 地址。
          */
-        http
-                .authorizeRequests(request -> {
-                    request
-                            .antMatchers("/").permitAll()
-                            .antMatchers("/auth/**", "/department/**").permitAll()
-                            .anyRequest().authenticated();
-                })
-
-                .addFilter(secutityRestAuthenticationFilter())
-        ;
-        // 关闭 csrf
-        http.csrf().disable();
-        // 关闭 session
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        // 未登录时返回处理
-//        http.httpBasic().authenticationEntryPoint(authenticationEntryPoint)
-//        http.exceptionHandling()
-//                .authenticationEntryPoint(new UnauthorizedEntryPoint());
-// 登录
-http.formLogin()
-        .usernameParameter("username")
-        .passwordParameter("password")
-        .loginProcessingUrl("/auth/login")
-//                .successHandler() // AuthenticationSuccessHandler
-//                .failureHandler() // AuthenticationFailureHandler
-        .permitAll();
-
-// 注销
-        http.logout(logout -> {
-            logout
-
-                    .logoutUrl("/auth/logout")
-//                    .addLogoutHandler() // 登出处理器
-//                    .logoutSuccessHandler()
-            ; // 指定登出的请求路径
-        });
-
-//                authorizeRequests()
-//                .anyRequest().authenticated();
-
-//                .and().logout().logoutUrl("/admin/acl/index/logout")
-//                .addLogoutHandler(new TokenLogoutHandler(tokenManager, redisTemplate)).and()
+//        http
+//                .authorizeRequests(request -> {
+//                    request
+//                            .antMatchers("/").permitAll()
+//                            .antMatchers("/auth/**", "/department/**").permitAll()
+//                            .anyRequest().authenticated();
+//                })
+//
+//                .addFilter(secutityRestAuthenticationFilter())
+//        ;
 //                .addFilter(new TokenLoginFilter(authenticationManager(), tokenManager, redisTemplate))
 //                .addFilter(new TokenAuthenticationFilter(authenticationManager(), tokenManager, redisTemplate)).httpBasic();
 
@@ -127,15 +139,18 @@ http.formLogin()
          * 基于 HttpServletRequest 的限制访问
          */
 //        http.authorizeRequests();
+
         /**
          * 配置会话管理
          * 关闭 session
          */
 //        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
         /**
          * 请求缓存
          */
 //        http.requestCache();
+
         /**
          * 更具 auth2 的认证
          */
@@ -146,6 +161,8 @@ http.formLogin()
          * accessDeniedHandler() 访问受限后交处理，访问失败后
          */
 //        http.exceptionHandling().accessDeniedHandler()
+//        http.httpBasic().authenticationEntryPoint(authenticationEntryPoint)
+//        http.exceptionHandling().authenticationEntryPoint(new UnauthorizedEntryPoint());
 
         /**
          * 表单登录：登录页面，登录路径，重定义登录字段名，登录成功重定向页面或者处理类，登录失败重定向页面或者处理类
@@ -179,9 +196,10 @@ http.formLogin()
          */
 //        http.logout(logout -> {
 //            logout
-//
+//                    .addLogoutHandler(new TokenLogoutHandler(tokenManager, redisTemplate))
 //                    .logoutUrl("/logout"); // 指定登出的请求路径
 //        });
+
 
         /**
          * csrf 攻击
@@ -199,7 +217,7 @@ http.formLogin()
          * cookie 存储 用户名、过期时间、hash
          * hash：md5(用户名、密码、过期时间、key)
          */
-        http.rememberMe().disable();
+//        http.rememberMe().disable();
 
     }
 

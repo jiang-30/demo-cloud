@@ -10,12 +10,18 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
+import springfox.documentation.swagger.web.SwaggerResource;
+
+import java.util.ArrayList;
 
 @RestControllerAdvice
 public class ResponseAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
+        if(returnType.toString().contains("swaggerResources") || returnType.toString().contains("getDocumentation")) {
+            return  false;
+        }
         return true;
     }
 
@@ -27,7 +33,7 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
             return  objectMapper.writeValueAsString(R.success(body));
         }
 
-        if(body instanceof  R) {
+        if(body instanceof  R ) {
             return  body;
         }
 
