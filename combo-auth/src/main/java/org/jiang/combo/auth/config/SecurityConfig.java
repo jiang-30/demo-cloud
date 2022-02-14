@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.sql.DataSource;
 
 @RequiredArgsConstructor
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final ObjectMapper objectMapper;
@@ -134,7 +134,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .dataSource(dataSource)
                 .usersByUsernameQuery("select username, password, status as enabled from s_user where username = ?")
                 .authoritiesByUsernameQuery("select u.username as username,  r.code as authority from  s_user u left join r_user_role  userRole on u.id = userRole.user_id left join s_role r on userRole.role_id = r.id where u.username = ?")
-                .passwordEncoder(passwordEncoder());
 //                .inMemoryAuthentication()
 //                .withUser("user").password(passwordEncoder().encode("123456")).disabled(true).roles("ADMIN", "USER")
 //                .and().withUser("user1").password(passwordEncoder().encode("123456")).roles("ADMIN")
@@ -150,4 +149,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        return new BCryptPasswordEncoder();
         return NoOpPasswordEncoder.getInstance();
     }
+
+//    public static void main(String[] args) {
+//        System.out.println(NoOpPasswordEncoder.getInstance().encode("123456"));
+//        System.out.println(new BCryptPasswordEncoder().encode("123456")); // $2a$10$fuuTd0X6SbxdN4bJ/ni.P.BMDb9rfIvqbtunFkmFDC8nss6NK9DLa
+//    }
 }
