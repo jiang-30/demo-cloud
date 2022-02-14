@@ -1,0 +1,35 @@
+server:
+  port: 9200
+
+# 日志 配置对应包的debug级别
+logging:
+  level:
+    org.jiang.combo.admin.mapper: debug
+
+
+spring:
+  application:
+    name: platform
+  datasource:
+    url: jdbc:mysql://39.104.48.239:3306/combo_project
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Root1234@
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+mybatis-plus:
+  #  configuration:
+  #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: deleted_flag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      insert-strategy: not_null
+      update-strategy: not_null
+      where-strategy: not_empty
+
+knife4j:
+  enable: true
