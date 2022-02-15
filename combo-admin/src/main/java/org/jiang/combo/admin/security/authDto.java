@@ -1,6 +1,6 @@
 package org.jiang.combo.admin.security;
 
-public class loginDto {
+public class authDto {
     /**
      * 通常 access token 是有有效期限的，如果过期就需要重新获取
      */
