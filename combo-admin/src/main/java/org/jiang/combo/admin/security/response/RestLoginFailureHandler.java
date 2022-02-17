@@ -1,4 +1,4 @@
-package org.jiang.combo.admin.security.handler;
+package org.jiang.combo.admin.security.response;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;

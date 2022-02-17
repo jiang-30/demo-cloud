@@ -2,11 +2,8 @@ package org.jiang.combo.admin.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.jiang.combo.admin.security.exception.RestAccessDeniedHandler;
-import org.jiang.combo.admin.security.exception.RestAuthenticationEntryPoint;
-import org.jiang.combo.admin.security.handler.RestLoginFailureHandler;
-import org.jiang.combo.admin.security.handler.RestLoginSuccessHandler;
-import org.jiang.combo.admin.security.handler.SecutityRestAuthenticationFilter;
+import org.jiang.combo.admin.security.response.RestLoginSuccessHandler;
+import org.jiang.combo.admin.security.handler.SecurityUserDetailsService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,35 +12,45 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 //import javax.sql.DataSource;
 
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final ObjectMapper objectMapper;
 //    private final DataSource dataSource;
 
-    public  SecutityRestAuthenticationFilter secutityRestAuthenticationFilter() throws Exception {
-        SecutityRestAuthenticationFilter filter = new SecutityRestAuthenticationFilter();
-        filter.setAuthenticationManager(authenticationManager());
-        filter.setAuthenticationSuccessHandler((request, response, authentication) -> {  // AuthenticationSuccessHandler
-//                        response.setStatus(HttpStatus.);
-//                        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            response.getWriter().println(objectMapper.writeValueAsString(authentication));
-        });
-        filter.setAuthenticationFailureHandler((request, response, exception) -> {
+    private  final SecurityUserDetailsService securityUserDetailsService;
 
-            response.getWriter().println(objectMapper.writeValueAsString(exception));
-        });
-
-        filter.setFilterProcessesUrl("/auth");
-
-        return filter;
+    @Bean
+    PasswordEncoder passwordEncoder() {
+//        Pbkdf2PasswordEncoder()
+//        MessageDigestPasswordEncoder // md5 sha-1
+        return new BCryptPasswordEncoder();
+//        return NoOpPasswordEncoder.getInstance();
     }
+
+//    public  SecutityRestAuthenticationFilter secutityRestAuthenticationFilter() throws Exception {
+//        SecutityRestAuthenticationFilter filter = new SecutityRestAuthenticationFilter();
+//        filter.setAuthenticationManager(authenticationManager());
+//        filter.setAuthenticationSuccessHandler((request, response, authentication) -> {  // AuthenticationSuccessHandler
+////                        response.setStatus(HttpStatus.);
+////                        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+//            response.getWriter().println(objectMapper.writeValueAsString(authentication));
+//        });
+//        filter.setAuthenticationFailureHandler((request, response, exception) -> {
+//
+//            response.getWriter().println(objectMapper.writeValueAsString(exception));
+//        });
+//
+//        filter.setFilterProcessesUrl("/auth");
+//
+//        return filter;
+//    }
 
 
 
@@ -59,20 +66,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          * 权限id、权限标识、权限名称、资源名称、资源访问地址
          */
         http
-                .exceptionHandling(exception -> {
-                    exception
-                            .authenticationEntryPoint(new RestAuthenticationEntryPoint())
-                            .accessDeniedHandler(new RestAccessDeniedHandler());
-                })
+//                .exceptionHandling(exception -> {
+//                    exception
+//                            .authenticationEntryPoint(new RestAuthenticationEntryPoint())
+//                            .accessDeniedHandler(new RestAccessDeniedHandler());
+//                })
                 .csrf(csrf -> {
                     csrf.disable();
                 })
-//                .sessionManagement(session -> {
-//                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//                })
-                .rememberMe(remember -> {
-                    remember.disable();
+                .sessionManagement(session -> {
+                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
                 })
+//                .rememberMe(remember -> {
+//                    remember.disable();
+//                })
                 .authorizeRequests(request -> {
                     request
                             .antMatchers(
@@ -84,20 +91,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .formLogin(login  -> {
                     login
-                            .usernameParameter("username")
-                            .passwordParameter("password")
-                            .loginProcessingUrl("/auth/login")
+//                            .usernameParameter("username")
+//                            .passwordParameter("password")
+//                            .loginProcessingUrl("/auth/login")
                             .successHandler(new RestLoginSuccessHandler())
-                            .failureHandler(new RestLoginFailureHandler())
+//                            .failureHandler(new RestLoginFailureHandler())
                             .permitAll();
                 })
-                .logout(logout -> {
-                    logout
-                            .logoutUrl("/auth/logout").permitAll()
-//                    .addLogoutHandler() // 登出处理器
-//                    .logoutSuccessHandler()
-                    ; // 指定登出的请求路径
-                });
+//                .logout(logout -> {
+//                    logout
+//                            .logoutUrl("/auth/logout").permitAll()
+////                    .addLogoutHandler() // 登出处理器
+////                    .logoutSuccessHandler()
+//                    ; // 指定登出的请求路径
+//                })
+        ;
 
         /**
          * 拦截那些请求
@@ -239,6 +247,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(securityUserDetailsService).passwordEncoder(passwordEncoder());
+
 //        auth
 //                .jdbcAuthentication()
 //                .dataSource(dataSource)
@@ -252,17 +262,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    @Bean
-    PasswordEncoder passwordEncoder() {
-//        Pbkdf2PasswordEncoder()
-//        MessageDigestPasswordEncoder // md5 sha-1
-//        Encoder
-//        return new BCryptPasswordEncoder();
-        return NoOpPasswordEncoder.getInstance();
-    }
-
-//    public static void main(String[] args) {
+    public static void main(String[] args) {
 //        System.out.println(NoOpPasswordEncoder.getInstance().encode("123456"));
-//        System.out.println(new BCryptPasswordEncoder().encode("123456")); // $2a$10$fuuTd0X6SbxdN4bJ/ni.P.BMDb9rfIvqbtunFkmFDC8nss6NK9DLa
-//    }
+        System.out.println(new BCryptPasswordEncoder().encode("123456")); // $2a$10$fuuTd0X6SbxdN4bJ/ni.P.BMDb9rfIvqbtunFkmFDC8nss6NK9DLa
+    }
 }

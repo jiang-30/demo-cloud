@@ -1,4 +1,4 @@
-package org.jiang.combo.admin.security.handler;
+package org.jiang.combo.admin.security.response;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -28,6 +28,9 @@ public class RestLoginSuccessHandler  implements AuthenticationSuccessHandler {
 // 创建 token ，并返回 ，设置过期时间为 300 秒
 //        String jwtToken = JwtTokenUtil.generateToken(selfUserDetails.getUsername(), 300);
 //        responseBody.setJwtToken(jwtToken);
+
+        System.out.println(authentication.getDetails());
+        System.out.println(authentication);
 
         response.getWriter().write("登录成功 login success;JSON.toJSONString(responseBody");
     }

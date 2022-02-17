@@ -19,6 +19,9 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+knife4j:
+  enable: true
+
 mybatis-plus:
   #  configuration:
   #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -31,5 +34,9 @@ mybatis-plus:
       update-strategy: not_null
       where-strategy: not_empty
 
-knife4j:
-  enable: true
+jwt:
+  secret: abcd
+  expiration: 1800
+  token-head: Bearer
+  header-name: Authorization
+

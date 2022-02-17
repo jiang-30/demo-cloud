@@ -15,9 +15,10 @@ import java.io.IOException;
 @Component
 public class RestAccessDeniedHandler implements AccessDeniedHandler {
 
-    @Override
-    public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
 
-        httpServletResponse.getWriter().write("JSON.toJSONString(responseBody)");
+    @Override
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+        response.setContentType("application/json; charset=utf-8");
+        response.getWriter().write("JSON.toJSONString(responseBody)");
     }
 }
