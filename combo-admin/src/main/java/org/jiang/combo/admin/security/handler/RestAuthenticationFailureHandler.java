@@ -1,4 +1,4 @@
-package org.jiang.combo.admin.security.response;
+package org.jiang.combo.admin.security.handler;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -13,10 +13,11 @@ import java.io.IOException;
  * 登录失败
  */
 @Component
-public class RestLoginFailureHandler  implements AuthenticationFailureHandler {
+public class RestAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        response.getWriter().write("登录失败 login failure" + exception.getMessage());
+
+        response.getWriter().write("登录认证失败 login failure" + exception.getMessage());
     }
 }

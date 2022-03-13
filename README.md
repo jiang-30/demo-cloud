@@ -1,0 +1,12 @@
+- Maven
+- SpringBoot
+- MyBatisPlus
+- SpringCloud
+  - Gateway
+- SpringCloudAlibaba
+  - Nacos
+- other
+  - Redis
+  - Jwt
+  - Swagger
+  - 
