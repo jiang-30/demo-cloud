@@ -1,6 +1,6 @@
 package org.jiang.combo.admin.service;
 
-import org.jiang.combo.admin.entity.Department;
+import org.jiang.combo.admin.model.Department;
 import org.jiang.combo.admin.mapper.DepartmentMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

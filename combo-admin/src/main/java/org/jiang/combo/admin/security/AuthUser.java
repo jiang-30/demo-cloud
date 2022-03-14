@@ -23,11 +23,19 @@ public class AuthUser implements UserDetails {
     private String username;
     private String password;
     private String enabled;
-    private List<String> roles;
+    private List<GrantedAuthority> authorities;
+//    private List<RolePojo> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+
+
+        //理想型返回 admin 权限，可自已处理这块
+//        List<SimpleGrantedAuthority> auth = new ArrayList<>();
+//        auth.add(new SimpleGrantedAuthority("ADMIN"));
+//        return auth;
+
+        return this.authorities;
     }
 
     @Override
@@ -65,7 +73,7 @@ public class AuthUser implements UserDetails {
     }
 
     /**
-     * 是否可用
+     * 是否可用,是否启用
      */
     @Override
     public boolean isEnabled() {

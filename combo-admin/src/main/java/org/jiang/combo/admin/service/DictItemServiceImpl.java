@@ -1,6 +1,6 @@
 package org.jiang.combo.admin.service;
 
-import org.jiang.combo.admin.entity.DictItem;
+import org.jiang.combo.admin.model.DictItem;
 import org.jiang.combo.admin.mapper.DictItemMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

@@ -3,7 +3,7 @@
 <mapper namespace="org.jiang.combo.admin.mapper.DepartmentMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="org.jiang.combo.admin.entity.Department">
+    <resultMap id="BaseResultMap" type="org.jiang.combo.admin.model.Department">
         <id column="id" property="id" />
         <result column="created_time" property="createdTime" />
         <result column="updated_time" property="updatedTime" />
@@ -18,7 +18,7 @@
     </resultMap>
 
     <!-- 通用查询结果列 -->
-    <resultMap id="TreeResultMap" extends="BaseResultMap" type="org.jiang.combo.admin.entity.Department">
+    <resultMap id="TreeResultMap" extends="BaseResultMap" type="org.jiang.combo.admin.model.Department">
         <collection property="children" column="id" select="getTree"></collection>
     </resultMap>
 

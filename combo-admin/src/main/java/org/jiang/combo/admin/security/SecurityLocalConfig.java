@@ -1,4 +1,8 @@
 package org.jiang.combo.admin.security;
 
-public class SecurityLocalConfig {
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
+
+public class SecurityLocalConfig  {
+
 }

@@ -1,6 +1,6 @@
 package org.jiang.combo.admin.dto;
 
-import org.jiang.combo.admin.entity.Department;
+import org.jiang.combo.admin.model.Department;
 
 import java.util.List;
 

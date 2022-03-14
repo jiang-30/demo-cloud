@@ -6,7 +6,7 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.jiang.combo.admin.entity.User;
+import org.jiang.combo.admin.model.User;
 import org.jiang.combo.admin.service.UserService;
 import org.springframework.web.bind.annotation.*;
 

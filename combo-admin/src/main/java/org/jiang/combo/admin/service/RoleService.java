@@ -1,6 +1,6 @@
 package org.jiang.combo.admin.service;
 
-import org.jiang.combo.admin.entity.Role;
+import org.jiang.combo.admin.model.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

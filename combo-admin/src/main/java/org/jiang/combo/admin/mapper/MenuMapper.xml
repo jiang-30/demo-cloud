@@ -3,7 +3,7 @@
 <mapper namespace="org.jiang.combo.admin.mapper.MenuMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="org.jiang.combo.admin.entity.Menu">
+    <resultMap id="BaseResultMap" type="org.jiang.combo.admin.model.Menu">
         <id column="id" property="id" />
         <result column="created_time" property="createdTime" />
         <result column="updated_time" property="updatedTime" />
@@ -25,8 +25,8 @@
     </resultMap>
 
     <!--  -->
-    <resultMap id="TreeResultMap" extends="BaseResultMap" type="org.jiang.combo.admin.entity.Menu">
-        <collection property="children" ofType="org.jiang.combo.admin.entity.Menu" column="id" select="getTree"></collection>
+    <resultMap id="TreeResultMap" extends="BaseResultMap" type="org.jiang.combo.admin.model.Menu">
+        <collection property="children" ofType="org.jiang.combo.admin.model.Menu" column="id" select="getTree"></collection>
     </resultMap>
 
     <!-- 通用查询结果列 -->

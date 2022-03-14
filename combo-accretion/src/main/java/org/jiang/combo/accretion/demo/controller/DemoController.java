@@ -15,18 +15,18 @@ import java.util.List;
 @RequestMapping("/demo")
 public class DemoController {
 
-    @GetMapping("")
+    @GetMapping("/idex")
     public String index() {
         return  "hello demo index";
     }
 
-    @Resource
-    UserMapper userMapper;
+//    @Resource
+//    UserMapper userMapper;
 
-    @GetMapping("/{id}")
-    public List<User>  getUser(@PathVariable long id) {
-        List<User> userList =  userMapper.selectList(null);
-
-        return  userList;
-    }
+//    @GetMapping("/{id}")
+//    public List<User>  getUser(@PathVariable long id) {
+//        List<User> userList =  userMapper.selectList(null);
+//
+//        return  userList;
+//    }
 }

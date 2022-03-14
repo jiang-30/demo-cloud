@@ -1,7 +1,7 @@
 package org.jiang.combo.admin.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.jiang.combo.admin.entity.User;
+import org.jiang.combo.admin.model.User;
 import org.jiang.combo.admin.mapper.UserMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

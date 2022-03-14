@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.*;
-import org.jiang.combo.admin.entity.Role;
+import org.jiang.combo.admin.model.Role;
 import org.jiang.combo.admin.service.RoleService;
 import org.springframework.web.bind.annotation.*;
 

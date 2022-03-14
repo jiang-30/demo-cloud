@@ -7,7 +7,7 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.jiang.combo.admin.entity.Platform;
+import org.jiang.combo.admin.model.Platform;
 import org.jiang.combo.admin.service.PlatformService;
 import org.springframework.web.bind.annotation.*;
 

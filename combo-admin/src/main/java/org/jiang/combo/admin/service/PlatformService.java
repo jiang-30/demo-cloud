@@ -1,6 +1,6 @@
 package org.jiang.combo.admin.service;
 
-import org.jiang.combo.admin.entity.Platform;
+import org.jiang.combo.admin.model.Platform;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

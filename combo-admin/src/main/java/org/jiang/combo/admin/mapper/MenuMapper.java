@@ -1,7 +1,7 @@
 package org.jiang.combo.admin.mapper;
 
 import org.apache.ibatis.annotations.Param;
-import org.jiang.combo.admin.entity.Menu;
+import org.jiang.combo.admin.model.Menu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;
