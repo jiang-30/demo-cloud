@@ -44,14 +44,14 @@ public class DictController {
         return list;
     }
 
-    @ApiOperation("查询字典列表（全部并包含字典项）")
+    @ApiOperation("查询字典列表（全部并含字典项）")
     @GetMapping("/list/items")
     public List<Dict> listAndItems() {
         List<Dict> list = dictService.getListItems();
         return list;
     }
 
-    @ApiOperation("查询字典详情（包含字典项）")
+    @ApiOperation("查询字典详情（含字典项）")
     @GetMapping("/items/{id}")
     public Dict entityAndItems(@PathVariable Integer id) {
         Dict entity = dictService.getItems(id);
