@@ -205,3 +205,31 @@ CREATE TABLE `s_dict_item` (
     登录日志：系统登录日志记录查询包含登录异常。
     在线用户：当前系统中活跃用户状态监控
  */
+
+/**
+* 平台
+*/
+drop table if EXISTS `s_client`;
+CREATE TABLE `s_client` (
+    `id` int NOT NULL AUTO_INCREMENT COMMENT '主键id',
+    `created_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+    `updated_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
+    `created_by` int DEFAULT NULL COMMENT '创建人',
+    `updated_by` int DEFAULT NULL COMMENT '更新人',
+    `deleted_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除状态: 1 已删；0 未删',
+    `name` varchar(20) NOT NULL COMMENT '平台名称',
+    `resource_ids` varchar(255) NOT NULL COMMENT '',
+    `client_secret` varchar(255) NOT NULL COMMENT '',
+    `scope` varchar(255) NOT NULL COMMENT '',
+    `authorized_grant_types` varchar(255) NOT NULL COMMENT '',
+    `web_server_redirect_uri` varchar(255) NOT NULL COMMENT '',
+    `authorities` varchar(255) NOT NULL COMMENT '',
+    `access_token_validity` INTEGER ,
+    `refresh_token_validity` INTEGER ,
+    `additional_information` varchar(4000) NOT NULL COMMENT '',
+    `autoapprove` varchar(255) NOT NULL COMMENT '',
+    `description` varchar(255) NOT NULL COMMENT '平台描述',
+    `status` char(1) NOT NULL DEFAULT '1' COMMENT '状态: 1 启用；0 禁用',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT'平台';
+INSERT INTO s_platform(name, code, description, sort) VALUES('管理平台', 'ADMIN', '管理平台', 1);

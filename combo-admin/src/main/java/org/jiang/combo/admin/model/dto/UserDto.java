@@ -1,4 +1,4 @@
-package org.jiang.combo.admin.dto;
+package org.jiang.combo.admin.model.dto;
 
 import lombok.Data;
 import org.jiang.combo.common.annotation.ValidEmail;

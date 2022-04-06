@@ -53,14 +53,14 @@ public class TokenManager {
 //        Map claims= new HashMap<>();
 //        claims.put("username", username);
 //        claims.put("userId", 12);
-        String t = Jwts.builder()
-                .setId("test")
-//                .claim("authorities", userDetails.getAuthorities().stream().map(authority -> ))
-                .setSubject("username")
-                .setIssuedAt(new Date(System.currentTimeMillis())) // 签发时间
-                .setExpiration(new Date(System.currentTimeMillis() + expireIn)) // 过期时间
-                .signWith()
-                ;
+//        String t = Jwts.builder()
+//                .setId("test")
+////                .claim("authorities", userDetails.getAuthorities().stream().map(authority -> ))
+//                .setSubject("username")
+//                .setIssuedAt(new Date(System.currentTimeMillis())) // 签发时间
+//                .setExpiration(new Date(System.currentTimeMillis() + expireIn)) // 过期时间
+//                .signWith()
+//                ;
 
         String token = Jwts.builder()
                 .setSubject(username)

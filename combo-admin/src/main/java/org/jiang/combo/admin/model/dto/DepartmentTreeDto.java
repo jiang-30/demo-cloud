@@ -1,4 +1,4 @@
-package org.jiang.combo.admin.dto;
+package org.jiang.combo.admin.model.dto;
 
 import org.jiang.combo.admin.model.Department;
 
