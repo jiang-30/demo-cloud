@@ -12,6 +12,7 @@
         <module>combo-gateway</module>
         <module>combo-admin</module>
         <module>combo-accretion</module>
+        <module>combo-auth</module>
     </modules>
     <packaging>pom</packaging>
 
