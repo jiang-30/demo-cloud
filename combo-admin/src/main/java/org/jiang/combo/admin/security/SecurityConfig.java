@@ -5,9 +5,11 @@ import org.jiang.combo.admin.security.filter.TokenAuthenticationFilter;
 import org.jiang.combo.admin.security.filter.TokenAuthorizationFilter;
 import org.jiang.combo.admin.security.handler.*;
 import org.jiang.combo.admin.security.service.SecurityUserDetailsService;
+import org.jiang.combo.admin.security.service.UserDetailsPasswordServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -15,9 +17,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.context.SecurityContextPersistenceFilter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Configuration
@@ -33,6 +40,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        Pbkdf2PasswordEncoder()
 //        MessageDigestPasswordEncoder // md5 sha-1
 //        return NoOpPasswordEncoder.getInstance();
+//
+        String default1 = "bcrypt";
+
+        Map encoders = new HashMap();
+        encoders.put(default1, new BCryptPasswordEncoder());
+        encoders.put("md5", new MessageDigestPasswordEncoder("md5"));
+        new DelegatingPasswordEncoder(default1, encoders);
+
         return new BCryptPasswordEncoder();
     }
 
@@ -54,9 +69,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .authorizeHttpRequests(request -> {
                     request
-                            .antMatchers(HttpMethod.GET, "/test/index").permitAll()
-                            .anyRequest().access(new DynamicAuthorizationManager());
+                            .antMatchers(HttpMethod.GET, "/test/index", "/login").permitAll()
+                            .anyRequest().authenticated()
+//                            .anyRequest().access(new DynamicAuthorizationManager())
+                    ;
                 })
+                .formLogin(Customizer.withDefaults())
                 .logout(logout -> {
                     logout
                             .logoutUrl("/auth/logout")
@@ -69,11 +87,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMe(remember -> {
                     remember.disable();
                 })
-                .sessionManagement(session -> {
-                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                })
+//                .sessionManagement(session -> {
+//                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//                })
                 .addFilterAfter(new TokenAuthorizationFilter(), SecurityContextPersistenceFilter.class)
-                .addFilterAt(
+                .addFilterAfter(
                         new TokenAuthenticationFilter(
                                 "/auth/login",
                                 authenticationManager(),

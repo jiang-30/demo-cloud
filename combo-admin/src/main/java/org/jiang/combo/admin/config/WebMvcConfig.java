@@ -14,6 +14,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        /**
+         * 通过 org.webjars 依赖引入的文件
+         */
         registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/");
         registry.setOrder(1);
     }

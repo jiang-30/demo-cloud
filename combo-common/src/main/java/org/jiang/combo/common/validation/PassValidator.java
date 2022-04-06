@@ -14,6 +14,9 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class PassValidator implements ConstraintValidator<ValidPassword, String> {
 
+    /**
+     * 国际化消息
+     */
     private final SpringMessageResolver springMessageResolver;
 
     @Override

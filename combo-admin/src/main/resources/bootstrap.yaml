@@ -9,6 +9,9 @@ logging:
 spring:
   application:
     name: platform
+  messages:
+    basename: message
+    encoding: utf-8
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher

@@ -12,6 +12,14 @@ import javax.validation.ValidationException;
 
 /**
  * 全局统一异常处理
+ * org.zalando
+ * problem-spring-web
+ *
+ * @ControllerAdvice
+ * implements ProblemHandling
+ *
+ *  @ControllerAdvice
+ *  SecurityAdviceTrait {}
  */
 @RestControllerAdvice
 public class ExceptionAdvice {

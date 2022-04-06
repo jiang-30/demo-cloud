@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 /**
- * token 管理
+ * token 管理 JwtUtil
  */
 @Component
 public class TokenManager {
@@ -30,13 +30,38 @@ public class TokenManager {
 //        return false;
 //    }
 
+    public String generateAccessToken(String username) {
+
+        String token = "";
+
+        return token;
+    }
+
+    public String generateRefreshToken(String username) {
+
+        String token = "";
+
+        return token;
+    }
+
+
     /**
      * 根据用户信息生成 token
      */
     public String generateToken(String username) {
+//        userDetails
 //        Map claims= new HashMap<>();
 //        claims.put("username", username);
 //        claims.put("userId", 12);
+        String t = Jwts.builder()
+                .setId("test")
+//                .claim("authorities", userDetails.getAuthorities().stream().map(authority -> ))
+                .setSubject("username")
+                .setIssuedAt(new Date(System.currentTimeMillis())) // 签发时间
+                .setExpiration(new Date(System.currentTimeMillis() + expireIn)) // 过期时间
+                .signWith()
+                ;
+
         String token = Jwts.builder()
                 .setSubject(username)
                 .setExpiration(new Date(System.currentTimeMillis() + expireIn))
