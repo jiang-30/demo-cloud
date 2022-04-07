@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * @since 2022-01-21
  */
 @Api(tags = "字典项管理")
-@ApiSort(9)
+@ApiSort(40)
 @RestController
 @RequestMapping("/dictItem")
 public class DictItemController {

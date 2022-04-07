@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @Component
-public class RedisOperator {
+public class RedisUtil {
 
 // @Autowired
 //    private RedisTemplate<String, Object> redisTemplate;

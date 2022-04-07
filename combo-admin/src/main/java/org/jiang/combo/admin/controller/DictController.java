@@ -23,7 +23,7 @@ import java.util.List;
  * @since 2022-01-21
  */
 @Api(tags = "字典管理")
-@ApiSort(8)
+@ApiSort(30)
 @RestController
 @RequestMapping("/dict")
 public class DictController {

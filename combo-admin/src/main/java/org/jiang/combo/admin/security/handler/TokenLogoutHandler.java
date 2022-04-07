@@ -1,6 +1,6 @@
 package org.jiang.combo.admin.security.handler;
 
-import org.jiang.combo.admin.common.utils.RedisOperator;
+import org.jiang.combo.admin.common.utils.RedisUtil;
 import org.jiang.combo.admin.common.utils.TokenManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
@@ -20,7 +20,7 @@ public class TokenLogoutHandler implements LogoutHandler {
     private TokenManager tokenManager;
 
     @Resource
-    private RedisOperator redisOperator;
+    private RedisUtil redisUtil;
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
@@ -33,7 +33,7 @@ public class TokenLogoutHandler implements LogoutHandler {
         if (token != null) {
             tokenManager.removeToken(token);
             String username = tokenManager.getUserInfo(token);
-            redisOperator.del(username);
+            redisUtil.del(username);
         }
 
     }

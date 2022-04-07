@@ -22,7 +22,7 @@ import java.util.List;
  * @since 2022-01-21
  */
 @Api(tags="角色管理")
-@ApiSort(2)
+@ApiSort(10)
 @RestController
 @RequestMapping("/role")
 public class RoleController {

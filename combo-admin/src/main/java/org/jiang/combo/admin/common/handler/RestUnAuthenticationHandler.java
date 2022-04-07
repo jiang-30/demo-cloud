@@ -1,4 +1,4 @@
-package org.jiang.combo.admin.security.handler;
+package org.jiang.combo.admin.common.handler;
 
 import lombok.SneakyThrows;
 import org.springframework.security.core.AuthenticationException;
@@ -13,6 +13,7 @@ import java.io.IOException;
 /**
  * 未认证
  */
+@Component
 public class RestUnAuthenticationHandler implements AuthenticationEntryPoint {
 
     @SneakyThrows

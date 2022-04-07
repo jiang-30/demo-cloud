@@ -23,7 +23,7 @@ import java.util.List;
  * @since 2022-01-21
  */
 @Api(tags = "菜单管理")
-@ApiSort(3)
+@ApiSort(15)
 @RestController
 @RequestMapping("/menu")
 public class MenuController {

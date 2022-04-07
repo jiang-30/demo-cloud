@@ -27,10 +27,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-@Configuration
+//@Configuration
 @RequiredArgsConstructor
 //@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
-@EnableWebSecurity(debug = true)
+//@EnableWebSecurity(debug = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private  final SecurityUserDetailsService securityUserDetailsService;

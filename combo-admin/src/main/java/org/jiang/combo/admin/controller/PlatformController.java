@@ -23,7 +23,7 @@ import java.util.List;
  * @since 2022-01-21
  */
 @Api(tags = "系统平台管理")
-@ApiSort(6)
+@ApiSort(25)
 @RestController
 @RequestMapping("/platform")
 public class PlatformController {

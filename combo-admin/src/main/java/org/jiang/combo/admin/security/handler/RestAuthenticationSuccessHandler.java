@@ -2,7 +2,7 @@ package org.jiang.combo.admin.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jiang.combo.admin.security.AuthUser;
-import org.jiang.combo.admin.common.utils.RedisOperator;
+import org.jiang.combo.admin.common.utils.RedisUtil;
 import org.jiang.combo.admin.common.utils.TokenManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -21,7 +21,7 @@ import java.io.IOException;
 public class RestAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     @Resource
-    private RedisOperator redisOperator;
+    private RedisUtil redisOperator;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {

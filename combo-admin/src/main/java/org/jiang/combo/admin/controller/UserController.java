@@ -22,7 +22,7 @@ import java.util.List;
  * @since 2022-01-21
  */
 @Api(tags = "用户管理")
-@ApiSort(1)
+@ApiSort(5)
 @RestController
 @RequestMapping("/user")
 public class UserController {

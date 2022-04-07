@@ -1,4 +1,4 @@
-package org.jiang.combo.admin.security.handler;
+package org.jiang.combo.admin.common.handler;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -12,6 +12,7 @@ import java.io.IOException;
 /**
  * 没有权限
  */
+@Component
 public class RestUnAuthorizationHandler implements AccessDeniedHandler {
 
 

@@ -2,7 +2,7 @@ package org.jiang.combo.admin.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
-import org.jiang.combo.common.response.R;
+import org.jiang.combo.admin.common.response.R;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;

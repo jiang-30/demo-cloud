@@ -10,26 +10,20 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     /**
      * 资源文件 默认 static；并且不需要添加 /static 前缀
-     * @param registry
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         /**
-         * 通过 org.webjars 依赖引入的文件
+         * swagger-bootstrap-ui
          */
-        registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/");
-        registry.setOrder(1);
+        registry.addResourceHandler("doc.html").addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
     /**
      * 默认在 templates 下查找；添加后缀 .html
      */
     @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("index");
-        registry.addViewController("/index").setViewName("index");
-        registry.addViewController("/about").setViewName("about");
-        registry.setOrder(1); // HIGHEST
-    }
+    public void addViewControllers(ViewControllerRegistry registry) {}
 
 }

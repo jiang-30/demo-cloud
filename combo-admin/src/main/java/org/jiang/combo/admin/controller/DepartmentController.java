@@ -21,7 +21,7 @@ import java.util.List;
  * @since 2022-01-21
  */
 @Api(tags="部门管理")
-@ApiSort(4)
+@ApiSort(20)
 @RestController
 @RequestMapping("/department")
 public class DepartmentController {
