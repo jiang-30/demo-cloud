@@ -6,11 +6,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.jiang.combo.admin.common.utils.JwtUtil;
+import org.jiang.combo.admin.common.utils.Result;
 import org.jiang.combo.admin.model.User;
 import org.jiang.combo.admin.model.dto.AuthDto;
 import org.jiang.combo.admin.model.dto.UserLoginDto;
 import org.jiang.combo.admin.model.dto.UserRegisterDto;
+import org.jiang.combo.admin.service.AuthService;
 import org.jiang.combo.admin.service.UserService;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +34,7 @@ public class AuthController {
 
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
-    private final JwtUtil jwtUtil;
+    private final AuthService authService;
 
     @GetMapping("/test")
     public List<User> test() {
@@ -71,7 +74,7 @@ public class AuthController {
     @ApiOperation("用户登录")
     @PostMapping("/login")
     public AuthDto login(@Valid @RequestBody UserLoginDto userLogin) throws Exception {
-        AuthDto auth = userService.getAuthByUsernameAndPassword(userLogin.getUsername(), userLogin.getPassword());
+        AuthDto auth = authService.getAuthByUsernameAndPassword(userLogin.getUsername(), userLogin.getPassword());
 
         return auth;
     }
@@ -79,8 +82,8 @@ public class AuthController {
     @ApiOperationSupport(order = 3)
     @ApiOperation("刷新token")
     @PostMapping("/refresh")
-    public void refresh() {
-
+    public Result<String> refresh(@RequestBody String refreshToken) {
+        return Result.success(refreshToken);
     }
 
     @ApiOperationSupport(order = 4)
@@ -91,7 +94,26 @@ public class AuthController {
     }
 
     @ApiOperationSupport(order = 5)
-    @ApiOperation("查询用户信息")
+    @ApiOperation("查询基础信息")
+    @PostMapping("/user")
+    public Authentication user(Authentication auth) {
+        return auth;
+    }
+
+    @ApiOperationSupport(order = 5)
+    @ApiOperation("查询权限信息")
+    @PostMapping("/permission")
+    public void permission() {
+
+    }
+
+    @ApiOperationSupport(order = 5)
+    @ApiOperation("查询菜单信息")
+    @PostMapping("/menu")
+    public void menu() {
+
+    }
+
     @PostMapping("/profile")
     public void profile() {
 

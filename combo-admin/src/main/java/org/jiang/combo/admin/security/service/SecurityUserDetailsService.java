@@ -2,6 +2,7 @@ package org.jiang.combo.admin.security.service;
 
 import org.jiang.combo.admin.model.User;
 import org.jiang.combo.admin.security.AuthUser;
+import org.jiang.combo.admin.service.AuthService;
 import org.jiang.combo.admin.service.UserService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -18,7 +19,7 @@ import java.util.List;
 @Service
 public class SecurityUserDetailsService implements UserDetailsService {
     @Resource
-    UserService userService;
+    AuthService authService;
 
     @Override
     public AuthUser loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -29,7 +30,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
         }
 
         // 查询用户信息
-        User user = userService.getByUsername(username);
+        User user = authService.getByUsername(username);
 
         if(user == null) {
             throw new UsernameNotFoundException("username 的用户不存在");

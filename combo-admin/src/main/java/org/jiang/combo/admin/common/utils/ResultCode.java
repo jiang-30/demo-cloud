@@ -1,4 +1,4 @@
-package org.jiang.combo.admin.common.response;
+package org.jiang.combo.admin.common.utils;
 
 /**
  * 1** ：服务器接收到请求，需要请求者继续执行操作

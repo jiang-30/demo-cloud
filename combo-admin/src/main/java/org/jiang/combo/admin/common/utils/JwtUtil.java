@@ -12,32 +12,50 @@ import java.util.Map;
 
 @Component
 public class JwtUtil {
-    static public int expireIn = 60 * 60 * 1000;
-    static private byte[] secretKey = "123456".getBytes();
-
-    static public String generateAccessToken(Integer id) {
-        String token = "";
-
-        return token;
-    }
-
-    public String generateRefreshToken(String username) {
-        String token = "";
-
-        return token;
-    }
-
+    public static  long expireIn = 60 * 60 * 1000;
+    private static String accessSecretKey = "123456";
+    private static String refreshSecretKey = "654321";
 
     /**
-     * 根据用户名生成 token
+     * 生成访问token
      */
-    static public String generateToken(int id) {
-        Map claims = new HashMap();
-        claims.put("id", id);
+    public static String generateAccessToken(String subject) {
+        return generateToken(subject, expireIn, accessSecretKey);
+    }
+
+    /**
+     * 访问token获取 subject
+     */
+    public static String getAccessSubject(String token) throws Exception {
+        String subject = getSubject(token, accessSecretKey);
+
+        return subject;
+    }
+
+    /**
+     * 生成刷新token
+     */
+    public static String generateRefreshToken(String subject) {
+        return generateToken(subject,expireIn * 4, refreshSecretKey);
+    }
+
+    /**
+     * 刷新刷新token获取 subject
+     */
+    public static String getRefreshSubject(String token) throws Exception {
+        String subject = getSubject(token, refreshSecretKey);
+
+        return subject;
+    }
+
+    /**
+     * 根据主题生成 token
+     */
+    public static String generateToken(String subject, long exp, String secretKey) {
 
         String token = Jwts.builder()
-                .setClaims(claims)
-                .setExpiration(new Date(System.currentTimeMillis() + expireIn))
+                .setSubject(subject)
+                .setExpiration(new Date(System.currentTimeMillis() + exp))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compressWith(CompressionCodecs.GZIP)
                 .compact();
@@ -46,23 +64,14 @@ public class JwtUtil {
     }
 
     /**
-     * 获取用户名
+     * 获取主题
      */
-    static public int getSubject(String token) {
-        Claims body = Jwts.parser()
+    public static String getSubject(String token, String secretKey) {
+        String subject = Jwts.parser()
                 .setSigningKey(secretKey)
                 .parseClaimsJws(token)
-                .getBody();
+                .getBody().getSubject();
 
-        return (int) body.get("id");
+        return subject;
     }
-
-    /**
-     * 移除 token
-     */
-    public boolean removeToken(String token) {
-
-        return false;
-    }
-
 }

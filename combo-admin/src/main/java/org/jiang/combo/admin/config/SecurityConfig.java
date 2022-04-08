@@ -17,7 +17,7 @@ import org.springframework.security.web.context.SecurityContextPersistenceFilter
 
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @Configuration
-@EnableWebSecurity(debug = false)
+@EnableWebSecurity(debug = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
@@ -35,7 +35,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .authorizeHttpRequests(request -> {
                     request
-                            .antMatchers("/auth/test", "/auth/login", "/auth/register").permitAll()
                             .anyRequest().authenticated();
                 })
                 .csrf(csrf -> {
@@ -58,8 +57,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/doc.html",
                         "/v3/**",
                         "/swagger-resources/**",
-                        "/webjars/**"
-                );
+                        "/webjars/**",
+                        "/auth/test"
+                )
+                .antMatchers(HttpMethod.POST,  "/auth/login", "/auth/register")
+        ;
 
     }
 }

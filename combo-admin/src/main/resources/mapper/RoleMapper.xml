@@ -22,4 +22,11 @@
         id, created_time, updated_time, created_by, updated_by, deleted_flag, name, code, description, sort, status
     </sql>
 
+    <select id="getRolesByUserId" resultMap="BaseResultMap">
+        select
+            user_role.id as user_role_id, role.id as id, created_time, updated_time, created_by, updated_by, deleted_flag, name, code, description, sort, status
+        from r_user_role user_role
+            left join s_role role on user_role.role_id = role.id
+        where user_role.user_id = #{id}
+    </select>
 </mapper>

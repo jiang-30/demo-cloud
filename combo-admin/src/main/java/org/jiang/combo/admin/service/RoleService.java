@@ -1,7 +1,10 @@
 package org.jiang.combo.admin.service;
 
+import org.apache.ibatis.annotations.Param;
 import org.jiang.combo.admin.model.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-01-21
  */
 public interface RoleService extends IService<Role> {
-
+    List<Role> getRolesByUserId(Integer id);
 }

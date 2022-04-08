@@ -3,6 +3,7 @@ package org.jiang.combo.admin.model;
 import com.baomidou.mybatisplus.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,6 +11,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * <p>
@@ -19,10 +21,12 @@ import lombok.Setter;
  * @author combo
  * @since 2022-01-21
  */
+
+@ApiModel(value = "User对象", description = "登录用户信息表")
+@TableName("s_user")
 @Getter
 @Setter
-@TableName("s_user")
-@ApiModel(value = "User对象", description = "登录用户信息表")
+@ToString
 public class User {
 
     @ApiModelProperty("主键id")
@@ -58,6 +62,7 @@ public class User {
     private String username;
 
     @ApiModelProperty("登录密码")
+    @JsonIgnore
     @TableField("password")
     private String password;
 
@@ -77,5 +82,7 @@ public class User {
     @TableField(value = "status", insertStrategy = FieldStrategy.NOT_EMPTY, updateStrategy = FieldStrategy.NOT_EMPTY)
     private String status;
 
-
+    @ApiModelProperty("角色")
+    @TableField(exist = false)
+    private List<Role> roles;
 }

@@ -54,6 +54,7 @@ mybatis-plus:
       insert-strategy: not_null
       update-strategy: not_null
       where-strategy: not_empty
+  mapper-locations: classpath*:/mapper/**/*.xml
 
 jwt:
   secret: abcd

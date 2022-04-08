@@ -41,4 +41,12 @@
             </if>
         order by sort
     </select>
+    <select id="selectByNameTrueOrderByUpdatedTime" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from s_department
+        where
+        name = true
+        order by updatedTime
+    </select>
 </mapper>
