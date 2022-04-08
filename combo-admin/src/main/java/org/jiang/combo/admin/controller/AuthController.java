@@ -43,6 +43,7 @@ public class AuthController {
     }
 
     /**
+     * 用户注册：用户通过用户名和密码注册
      * 0. 密码解密
      * 1. 用户名唯一
      * 2. 邮箱唯一
@@ -69,6 +70,7 @@ public class AuthController {
 
     /**
      * 用户登录
+     * 用户通过用户名和密码获取token和用户信息
      */
     @ApiOperationSupport(order = 2)
     @ApiOperation("用户登录")
@@ -79,6 +81,10 @@ public class AuthController {
         return auth;
     }
 
+    /**
+     * 刷新token
+     * 通过 refreshToken 获取新的token
+     */
     @ApiOperationSupport(order = 3)
     @ApiOperation("刷新token")
     @PostMapping("/refresh")
@@ -86,6 +92,10 @@ public class AuthController {
         return Result.success(refreshToken);
     }
 
+    /**
+     * 校验 token
+     * 校验用户的accessToken 是否有效
+     */
     @ApiOperationSupport(order = 4)
     @ApiOperation("验证token有效性")
     @PostMapping("/check")
@@ -93,6 +103,10 @@ public class AuthController {
 
     }
 
+    /**
+     * 获取当前用户的基础信息
+     * 用户信息、角色信息
+     */
     @ApiOperationSupport(order = 5)
     @ApiOperation("查询基础信息")
     @PostMapping("/user")
@@ -100,6 +114,9 @@ public class AuthController {
         return auth;
     }
 
+    /**
+     * 当前用户角色包含的权限信息
+     */
     @ApiOperationSupport(order = 5)
     @ApiOperation("查询权限信息")
     @PostMapping("/permission")

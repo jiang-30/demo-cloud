@@ -17,7 +17,7 @@ import org.springframework.security.web.context.SecurityContextPersistenceFilter
 
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity(debug = false)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean

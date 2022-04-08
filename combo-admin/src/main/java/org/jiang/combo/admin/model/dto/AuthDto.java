@@ -9,4 +9,9 @@ public class AuthDto {
     private String refreshToken;
     private long expireIn;
     private User user;
+//    menus
+//    roles: ["ROLE_ADMIN"]
+//    authorities ["get:/admin/user/*"]
+//    token_type: "bearer"
+//    scope: "server"
 }

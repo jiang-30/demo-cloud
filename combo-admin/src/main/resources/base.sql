@@ -7,6 +7,8 @@ USE `combo_project`;
  * 用户表
     `login_time` datetime(6) DEFAULT NULL COMMENT '最后登录时间',
     `login_ip` varchar(15) DEFAULT NULL COMMENT '最后登录ip',
+avatar 头像
+
  */
 drop table if EXISTS `s_user`;
 CREATE TABLE `s_user` (
