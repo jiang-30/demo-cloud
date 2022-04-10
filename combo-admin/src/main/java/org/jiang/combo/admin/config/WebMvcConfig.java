@@ -1,6 +1,7 @@
 package org.jiang.combo.admin.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -16,8 +17,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
         /**
          * swagger-bootstrap-ui
          */
-        registry.addResourceHandler("doc.html").addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+//        registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
+//        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
     /**
@@ -26,4 +27,19 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {}
 
+    /**
+     * 配置跨域
+     * spring security 也需要配置 http.cors();
+     */
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/auth/login")
+                .allowedOriginPatterns("*")
+                .allowCredentials(false)
+                .allowedMethods("GET", "POST")
+                .allowedHeaders("*")
+                .maxAge(3600);
+
+        WebMvcConfigurer.super.addCorsMappings(registry);
+    }
 }

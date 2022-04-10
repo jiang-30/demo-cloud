@@ -11,8 +11,11 @@ import org.jiang.combo.admin.model.dto.AuthDto;
 import org.jiang.combo.admin.service.AuthService;
 import org.jiang.combo.admin.service.RoleService;
 import org.jiang.combo.admin.service.UserService;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +39,19 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    public void createAuthorization(String username, String password) {
+
+    }
+
+    @Override
+    public void deleteAuthorization() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+        System.out.println(principal);
+
+    }
+
+    @Override
     public AuthDto getAuthByUsernameAndPassword(String username, String password) throws Exception {
         User user = getByUsername(username);
 
@@ -47,17 +63,21 @@ public class AuthServiceImpl implements AuthService {
             throw new Exception("密码不正确");
         }
 
+        /**
+         * 用户角色信息
+         */
         List<Role> roles = roleService.getRolesByUserId(user.getId());
         user.setRoles(roles);
 
+        /**
+         * token
+         */
         String accessToken = JwtUtil.generateAccessToken(user.getUsername());
         String refreshToken = JwtUtil.generateRefreshToken(user.getUsername());
 
 //        permission
 //        menus
-
-        redisUtil.set(user.getUsername(), user.getUsername());
-        System.out.println(redisUtil.get(user.getUsername()));
+        redisUtil.set("authorization:" + user.getUsername(), user.getUsername());
 
 
         AuthDto auth = new AuthDto();

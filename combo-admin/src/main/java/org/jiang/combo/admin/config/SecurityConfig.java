@@ -1,24 +1,31 @@
 package org.jiang.combo.admin.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jiang.combo.admin.common.filter.TokenAuthorizationFilter;
-import org.jiang.combo.admin.common.handler.*;
+import org.jiang.combo.admin.common.utils.Result;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @Configuration
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @EnableWebSecurity(debug = false)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
@@ -30,8 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .exceptionHandling(exception -> {
                     exception
-                            .authenticationEntryPoint(new RestUnAuthenticationHandler())
-                            .accessDeniedHandler(new RestUnAuthorizationHandler());
+                            .authenticationEntryPoint((HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) -> {
+                                String res  = objectMapper.writeValueAsString(Result.fail(401, "未认证，请登陆后再访问系统资源"));
+                                Result.response(response, res);
+                            })
+                            .accessDeniedHandler((HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) -> {
+                                String res  = objectMapper.writeValueAsString(Result.fail(403, "未授权，请联系管理员授权后访问系统资源"));
+                                Result.response(response, res);
+                            });
                 })
                 .authorizeHttpRequests(request -> {
                     request
@@ -40,6 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf(csrf -> {
                     csrf.disable();
                 })
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterAfter(new TokenAuthorizationFilter(), SecurityContextPersistenceFilter.class)
         ;
     }

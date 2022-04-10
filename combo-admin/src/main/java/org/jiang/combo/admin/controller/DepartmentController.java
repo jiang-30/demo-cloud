@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.jiang.combo.admin.model.Department;
 import org.jiang.combo.admin.service.DepartmentService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -31,6 +32,7 @@ public class DepartmentController {
 
     @ApiOperation("查询部门列表（树形）")
     @GetMapping("/tree")
+    @PreAuthorize("hasAuthority('get:department/tree')")
     public List<Department> getTree(Integer pId) {
         List<Department> tree = departmentService.getTree(pId);
         return tree;

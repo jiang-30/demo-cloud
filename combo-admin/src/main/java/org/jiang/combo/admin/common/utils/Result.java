@@ -1,7 +1,11 @@
 package org.jiang.combo.admin.common.utils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
@@ -41,6 +45,14 @@ public class Result<T> {
         return result;
     }
 
+    public static void response(HttpServletResponse response, String str) throws IOException {
+        response.setStatus(200);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        response.getWriter().println(str);
+    }
+
+
     /**
      * 失败
      */
@@ -59,4 +71,5 @@ public class Result<T> {
 
         return result;
     }
+
 }

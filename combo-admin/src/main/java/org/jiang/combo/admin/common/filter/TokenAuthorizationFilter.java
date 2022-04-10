@@ -2,6 +2,7 @@ package org.jiang.combo.admin.common.filter;
 
 import lombok.SneakyThrows;
 import org.jiang.combo.admin.common.utils.JwtUtil;
+import org.jiang.combo.admin.common.utils.RedisUtil;
 import org.jiang.combo.admin.model.User;
 import org.jiang.combo.admin.service.AuthService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,10 +21,12 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * 授权
+ * 认证：解析Authorization 查询用户信息
  */
 public class TokenAuthorizationFilter extends OncePerRequestFilter {
 
+    @Resource
+    private RedisUtil redisUtil;
 
 //    @Resource
 //    private AuthService authService;
@@ -31,25 +34,27 @@ public class TokenAuthorizationFilter extends OncePerRequestFilter {
     @SneakyThrows
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        // 获取用户的认证信息
+
         String token = request.getHeader("Authorization");
         System.out.println(token);
 
+        /**
+         * 携带token则解析，解析成功后查询用户信息生成 Authentication
+         */
         if (token != null && token.startsWith("Bearer ")) {
-            //如果携带了正确格式的token要先得到token
             token = token.replace("Bearer ", "");
             String username = JwtUtil.getAccessSubject(token);
-//            System.out.println("header-username: " + username);
+            String s = redisUtil.get("authorization:" + username);
+            if(s  != null) {
+                //          User user = authService.getByUsername(username);
 
-//            User user = authService.getByUsername(username);
 
-            List<GrantedAuthority> auths = AuthorityUtils.commaSeparatedStringToAuthorityList(
-                    "create,ROLE_ADMIN"
-            );
-
-            UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, null, auths);
-            // 添加到 Security 上下文
-            SecurityContextHolder.getContext().setAuthentication(authRequest);
+                List<GrantedAuthority> auths = AuthorityUtils.commaSeparatedStringToAuthorityList(
+                        "create,ROLE_ADMIN"
+                );
+                UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, null, auths);
+                SecurityContextHolder.getContext().setAuthentication(authRequest);
+            }
         }
         filterChain.doFilter(request, response);
     }

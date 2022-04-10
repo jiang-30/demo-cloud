@@ -76,6 +76,7 @@ public class AuthController {
     @ApiOperation("用户登录")
     @PostMapping("/login")
     public AuthDto login(@Valid @RequestBody UserLoginDto userLogin) throws Exception {
+
         AuthDto auth = authService.getAuthByUsernameAndPassword(userLogin.getUsername(), userLogin.getPassword());
 
         return auth;
@@ -93,13 +94,19 @@ public class AuthController {
     }
 
     /**
-     * 校验 token
      * 校验用户的accessToken 是否有效
      */
     @ApiOperationSupport(order = 4)
     @ApiOperation("验证token有效性")
     @PostMapping("/check")
     public void check() {
+
+    }
+
+    @ApiOperation(value = "退出登录", tags = "退出登录", notes = "删除用户登录信息")
+    @ApiOperationSupport(order = 4)
+    @PostMapping("/logout")
+    public void logout() {
 
     }
 

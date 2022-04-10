@@ -17,10 +17,6 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-    static-path-pattern: /static/**
-    view:
-      prefix: classpath:/templates/
-      suffix: .html
   datasource:
     url: jdbc:mysql://39.104.48.239:3306/combo_project
     driver-class-name: com.mysql.cj.jdbc.Driver

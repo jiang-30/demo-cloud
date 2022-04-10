@@ -1,4 +1,4 @@
-package org.jiang.combo.admin.common;
+package org.jiang.combo.admin.common.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
