@@ -16,4 +16,27 @@ import java.util.List;
  */
 public interface MenuMapper extends BaseMapper<Menu> {
     List<Menu> getTree(@Param("pId") Integer pId);
+
+    /**
+     * 通过角色id查询权限列表
+     */
+    List<String> getAuthoritiesByRoleIds(@Param("rIds") List<Integer> rIds);
+
+    /**
+     * 通过角色ids 查询菜单
+     */
+    List<Menu> selectListByRoleIds(@Param("rIds") List<Integer> rIds);
+
+
+    /**
+     * 删除角色和权限
+     */
+    int deleteRoleMenuByRoleId(@Param("id") Integer id);
+
+    /**
+     * 为角色赋权限
+     */
+    int insertRoleMenu(@Param("rId") Integer rId, @Param("mIds") List<Integer> mIds);
+
+
 }

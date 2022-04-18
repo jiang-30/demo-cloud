@@ -44,17 +44,22 @@ public class TokenAuthorizationFilter extends OncePerRequestFilter {
         if (token != null && token.startsWith("Bearer ")) {
             token = token.replace("Bearer ", "");
             String username = JwtUtil.getAccessSubject(token);
-            String s = redisUtil.get("authorization:" + username);
-            if(s  != null) {
-                //          User user = authService.getByUsername(username);
+//            String s = redisUtil.get("authorization:" + username);
 
-
+            if(username != null) {
                 List<GrantedAuthority> auths = AuthorityUtils.commaSeparatedStringToAuthorityList(
                         "create,ROLE_ADMIN"
                 );
                 UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, null, auths);
                 SecurityContextHolder.getContext().setAuthentication(authRequest);
             }
+
+//            if(s  != null) {
+//                //          User user = authService.getByUsername(username);
+//
+//
+//
+//            }
         }
         filterChain.doFilter(request, response);
     }

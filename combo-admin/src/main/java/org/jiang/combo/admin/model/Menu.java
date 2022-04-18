@@ -8,6 +8,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,8 +20,7 @@ import lombok.Setter;
  * @author combo
  * @since 2022-01-21
  */
-@Getter
-@Setter
+@Data
 @TableName("s_menu")
 @ApiModel(value = "Menu对象", description = "系统菜单")
 public class Menu {

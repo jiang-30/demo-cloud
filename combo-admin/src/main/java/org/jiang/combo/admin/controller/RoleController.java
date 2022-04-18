@@ -6,7 +6,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.*;
+import lombok.RequiredArgsConstructor;
 import org.jiang.combo.admin.model.Role;
+import org.jiang.combo.admin.model.dto.RoleMenuDto;
+import org.jiang.combo.admin.service.MenuService;
 import org.jiang.combo.admin.service.RoleService;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,10 +28,23 @@ import java.util.List;
 @ApiSort(10)
 @RestController
 @RequestMapping("/role")
+@RequiredArgsConstructor
 public class RoleController {
 
-    @Resource
-    RoleService roleService;
+    private final RoleService roleService;
+
+    private final MenuService menuService;
+
+    /**
+     * 为角色分配权限
+     */
+    @ApiOperation("为角色分配权限")
+    @PostMapping("/menu")
+    public Boolean setMenu(@RequestBody RoleMenuDto roleMenu) {
+        System.out.println(roleMenu);
+        menuService.saveMenuForRole(roleMenu.getRoleId(), roleMenu.getMenuIds());
+        return false;
+    }
 
     @ApiOperation("查询角色列表（分页）")
     @GetMapping("/page")

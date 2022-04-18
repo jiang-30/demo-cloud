@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.jiang.combo.admin.service.MenuService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +19,7 @@ import java.util.List;
  */
 @Service
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements MenuService {
+
     @Override
     public List<Menu> getTree(Integer pId) {
         List<Menu> tree = baseMapper.getTree(pId);
@@ -25,7 +27,33 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     }
 
     @Override
-    public List<Menu> getListByRoles(List<Integer> ids) {
+    public List<Menu> getTreeEnabled(Integer pId) {
         return null;
+    }
+
+    @Override
+    public List<Menu> getListByRoleIds(List<Integer> ids) {
+        baseMapper.selectListByRoleIds(ids);
+        return null;
+    }
+
+    @Override
+    public List<Menu> getAuthoritiesByRoles(List<Integer> ids) {
+        return null;
+    }
+
+
+    @Override
+    public boolean saveMenuForRole(Integer id, List<Integer> ids) {
+        int count = baseMapper.deleteRoleMenuByRoleId(id);
+        int i = baseMapper.insertRoleMenu(id, ids);
+
+        List<Integer> rIds = new ArrayList<>();
+        rIds.add(1);
+        rIds.add(2);
+//        List<Menu> menus = baseMapper.selectListByRoleIds(rIds);
+        List<String> authorities = baseMapper.getAuthoritiesByRoleIds(rIds);
+        System.out.println(authorities);
+        return false;
     }
 }

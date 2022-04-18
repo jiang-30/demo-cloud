@@ -34,6 +34,24 @@
         id, created_time, updated_time, created_by, updated_by, deleted_flag, name, description, icon, path, component, target, type, visible, keep_alive, sort, permission, parent_id
     </sql>
 
+    <!--    为角色赋权限-->
+    <insert id="insertRoleMenu">
+        insert into
+            r_role_menu(role_id, menu_id)
+        values
+            <foreach collection="mIds" item="mId" separator="," >
+                (#{rId}, #{mId})
+            </foreach>
+    </insert>
+
+    <!--    删除角色和权限-->
+    <delete id="deleteRoleMenuByRoleId">
+        delete
+        from r_role_menu
+        where role_id = #{id}
+    </delete>
+
+    <!--    查询菜单权限树-->
     <select id="getTree" resultMap="TreeResultMap">
         select
             <include refid="Base_Column_List"></include>
@@ -46,6 +64,36 @@
             parent_id = #{pId}
         </if>
         order by sort
+    </select>
+
+
+    <select id="getAuthoritiesByRoleIds" resultType="java.lang.String">
+        SELECT
+            DISTINCT permission
+        FROM
+            r_role_menu rrm
+        LEFT JOIN
+            s_menu sm ON  rrm.menu_id = sm.id
+        WHERE
+            rrm.role_id in
+            <foreach collection="rIds" item="rid" open="("  close=")" separator=",">
+                #{rid}
+            </foreach>
+            and permission IS NOT NULL
+    </select>
+
+    <select id="selectListByRoleIds" resultType="org.jiang.combo.admin.model.Menu">
+        SELECT
+          DISTINCT sm.id as id, created_time, updated_time, created_by, updated_by, deleted_flag, name, description, icon, path, component, target, type, visible, keep_alive, sort, permission, parent_id
+        FROM
+            r_role_menu rrm
+        LEFT JOIN
+            s_menu sm ON rrm.menu_id = sm.id
+        WHERE
+            rrm.role_id in
+            <foreach collection="rIds" item="rid" open="("  close=")" separator=",">
+                #{rid}
+            </foreach>
     </select>
 
 </mapper>

@@ -15,5 +15,8 @@ import java.util.List;
  * @since 2022-01-21
  */
 public interface RoleMapper extends BaseMapper<Role> {
+    /**
+     * 通过用户id查询角色信息
+     */
     List<Role> getRolesByUserId(@Param("id") Integer id);
 }

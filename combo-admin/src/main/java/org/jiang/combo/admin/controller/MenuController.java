@@ -30,9 +30,19 @@ public class MenuController {
     @Resource
     MenuService menuService;
 
+    /**
+     * 查询可为角色分配的权限
+     */
+    @ApiOperation("查询可用权限（树形）")
+    @GetMapping("/authtree")
+    public List<Menu> getTreeEnabled(Integer pId) {
+        List<Menu> tree = menuService.getTreeEnabled(pId);
+        return tree;
+    }
+
     @ApiOperation("查询部门列表（树形）")
     @GetMapping("/tree")
-    public List<Menu> getTree(Integer pId) {
+    public List<Menu> tree(Integer pId) {
         List<Menu> tree = menuService.getTree(pId);
         return tree;
     }
@@ -54,7 +64,7 @@ public class MenuController {
     @ApiOperation("查询菜单详情")
     @ApiOperationSupport(order = 1)
     @GetMapping("/{id}")
-    public Menu role(@PathVariable Integer id) {
+    public Menu detail(@PathVariable Integer id) {
         Menu entity = menuService.getById(id);
         return entity;
     }

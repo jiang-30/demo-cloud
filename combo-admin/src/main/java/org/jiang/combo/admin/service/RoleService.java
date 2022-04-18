@@ -15,5 +15,10 @@ import java.util.List;
  * @since 2022-01-21
  */
 public interface RoleService extends IService<Role> {
+
+    /**
+     * 查询用户角色列表
+     */
     List<Role> getRolesByUserId(Integer id);
+
 }
