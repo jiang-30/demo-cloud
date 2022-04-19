@@ -8,11 +8,12 @@ public interface AuthService {
     User getByUsername(String username);
 
     /**
-     * 通过用户名和密码创建用户认证信息
+     * 创建用户认证信息通过用户名和密码
+     *
      * @param username
      * @param password
      */
-    void createAuthorization(String username, String password);
+    AuthDto createAuthorization(String username, String password) throws Exception;
 
     /**
      *

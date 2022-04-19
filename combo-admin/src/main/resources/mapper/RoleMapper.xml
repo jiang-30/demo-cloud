@@ -29,4 +29,17 @@
             left join s_role role on user_role.role_id = role.id
         where user_role.user_id = #{id}
     </select>
+
+    <select id="listByUserId" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            r_user_role rur
+        left join
+            s_role sr on rur.role_id = sr.id
+        where
+            rur.user_id = #{id}
+
+    </select>
+    <update id="setRolesForUser"></update>
 </mapper>

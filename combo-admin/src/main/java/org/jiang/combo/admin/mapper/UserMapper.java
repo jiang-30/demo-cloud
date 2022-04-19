@@ -19,4 +19,6 @@ import java.util.List;
  */
 public interface UserMapper extends BaseMapper<User> {
     User getUser(@Param("id") Integer id);
+
+    User getProfile(@Param("id") Integer id);
 }

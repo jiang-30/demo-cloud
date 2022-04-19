@@ -19,4 +19,12 @@ public interface RoleMapper extends BaseMapper<Role> {
      * 通过用户id查询角色信息
      */
     List<Role> getRolesByUserId(@Param("id") Integer id);
+
+    /**
+     * 通过用户id查询角色列表
+     */
+    List<Role> listByUserId(@Param("id") Integer id);
+
+
+
 }

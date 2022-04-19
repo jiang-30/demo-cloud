@@ -14,5 +14,14 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface UserService extends IService<User> {
     boolean isExistUsername(String username);
 
+    /**
+     * 查询用户
+     */
     User getUser(Integer id);
+
+    /**
+     * 查询用户详细信息
+     * 角色、权限、部门、岗位
+     */
+    User getProfile(Integer id);
 }

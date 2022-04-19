@@ -29,6 +29,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+
+
+
     @Override
     public boolean isExistUsername(String username) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
@@ -41,5 +44,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public User getUser(Integer id) {
         return baseMapper.getUser(id);
+    }
+
+    /**
+     * 用户信息、用户id角色信息、角色ids权限信息
+     * @param id
+     * @return
+     */
+    @Override
+    public User getProfile(Integer id) {
+
+        return null;
     }
 }

@@ -74,4 +74,9 @@
         where user.id = #{id}
     </select>
 
+
+    <select id="getProfile" resultType="org.jiang.combo.admin.model.User">
+
+    </select>
+
 </mapper>

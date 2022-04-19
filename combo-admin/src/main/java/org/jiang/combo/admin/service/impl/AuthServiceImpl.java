@@ -4,11 +4,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.RequiredArgsConstructor;
 import org.jiang.combo.admin.common.utils.JwtUtil;
 import org.jiang.combo.admin.common.utils.RedisUtil;
+import org.jiang.combo.admin.model.Menu;
 import org.jiang.combo.admin.model.Role;
 import org.jiang.combo.admin.model.User;
 import org.jiang.combo.admin.model.bo.SecurityUserDetails;
 import org.jiang.combo.admin.model.dto.AuthDto;
 import org.jiang.combo.admin.service.AuthService;
+import org.jiang.combo.admin.service.MenuService;
 import org.jiang.combo.admin.service.RoleService;
 import org.jiang.combo.admin.service.UserService;
 import org.springframework.security.access.annotation.Secured;
@@ -20,12 +22,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
     private final UserService userService;
     private final RoleService roleService;
+    private final MenuService menuService;
     private final PasswordEncoder passwordEncoder;
     private final RedisUtil redisUtil;
 
@@ -39,8 +43,44 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void createAuthorization(String username, String password) {
+    public AuthDto createAuthorization(String username, String password) throws Exception {
+        User user = getByUsername(username);
 
+        if(user == null) {
+            throw new Exception("用户名不正确");
+        }
+
+        if(!passwordEncoder.matches(password, user.getPassword())) {
+            throw new Exception("密码不正确");
+        }
+
+        /**
+         * 用户角色信息
+         */
+        List<Role> roles = roleService.getRolesByUserId(user.getId());
+        user.setRoles(roles);
+        List<Integer> rIds = roles.stream().map(Role::getId).collect(Collectors.toList());
+        List<String> authorities= menuService.getAuthoritiesByRoles(rIds);
+
+
+        /**
+         * token
+         */
+        String accessToken = JwtUtil.generateAccessToken(user.getUsername());
+        String refreshToken = JwtUtil.generateRefreshToken(user.getUsername());
+
+//        permission
+//        menus
+        redisUtil.set("authorization:" + user.getUsername(), user.getUsername());
+
+
+        AuthDto auth = new AuthDto();
+        auth.setAccessToken(accessToken);
+        auth.setRefreshToken(refreshToken);
+        auth.setExpireIn(JwtUtil.expireIn);
+        auth.setUser(user);
+
+        return auth;
     }
 
     @Override
@@ -68,6 +108,9 @@ public class AuthServiceImpl implements AuthService {
          */
         List<Role> roles = roleService.getRolesByUserId(user.getId());
         user.setRoles(roles);
+        List<Integer> rIds = roles.stream().map(Role::getId).collect(Collectors.toList());
+        List<String> authorities= menuService.getAuthoritiesByRoles(rIds);
+
 
         /**
          * token

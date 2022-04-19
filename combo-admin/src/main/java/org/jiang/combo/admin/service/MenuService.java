@@ -34,8 +34,9 @@ public interface MenuService extends IService<Menu> {
 
     /**
      * 通过角色查询权限（角色权限关联表-并且权限可用状态）
+     * @return
      */
-    List<Menu> getAuthoritiesByRoles(List<Integer> ids);
+    List<String> getAuthoritiesByRoles(List<Integer> ids);
 
     /**
      * 为角色设置权限

@@ -38,8 +38,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     }
 
     @Override
-    public List<Menu> getAuthoritiesByRoles(List<Integer> ids) {
-        return null;
+    public List<String> getAuthoritiesByRoles(List<Integer> ids) {
+        List<String> authorities = baseMapper.getAuthoritiesByRoleIds(ids);
+        return authorities;
     }
 
 
@@ -52,8 +53,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         rIds.add(1);
         rIds.add(2);
 //        List<Menu> menus = baseMapper.selectListByRoleIds(rIds);
-        List<String> authorities = baseMapper.getAuthoritiesByRoleIds(rIds);
-        System.out.println(authorities);
+
+//        System.out.println(authorities);
         return false;
     }
 }

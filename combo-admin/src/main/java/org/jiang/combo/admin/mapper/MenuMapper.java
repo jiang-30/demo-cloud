@@ -27,7 +27,6 @@ public interface MenuMapper extends BaseMapper<Menu> {
      */
     List<Menu> selectListByRoleIds(@Param("rIds") List<Integer> rIds);
 
-
     /**
      * 删除角色和权限
      */

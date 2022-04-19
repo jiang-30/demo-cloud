@@ -36,19 +36,6 @@ public class AuthController {
     private final UserService userService;
     private final AuthService authService;
 
-    @GetMapping("/test")
-    public List<User> test() {
-        List<User> list = userService.list();
-        return list;
-    }
-
-    /**
-     * 用户注册：用户通过用户名和密码注册
-     * 0. 密码解密
-     * 1. 用户名唯一
-     * 2. 邮箱唯一
-     * 3. 默认角色
-     */
     @ApiOperationSupport(order = 1)
     @ApiOperation("用户注册")
     @PostMapping("/register")
