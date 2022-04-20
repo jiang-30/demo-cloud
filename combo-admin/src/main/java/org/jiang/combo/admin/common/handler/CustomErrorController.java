@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class CustomErrorController implements ErrorController {
     @RequestMapping("/error")
     public Result handlerError() {
-        return Result.fail(500, "服务器异常");
+        return Result.fail(500, "服务器异常!!!");
     }
 }

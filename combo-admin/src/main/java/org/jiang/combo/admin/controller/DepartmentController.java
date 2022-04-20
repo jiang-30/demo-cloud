@@ -32,7 +32,7 @@ public class DepartmentController {
 
     @ApiOperation("查询部门列表（树形）")
     @GetMapping("/tree")
-    @PreAuthorize("hasAuthority('get:department/tree')")
+//    @PreAuthorize("hasAuthority('get:department/tree')")
     public List<Department> getTree(Integer pId) {
         List<Department> tree = departmentService.getTree(pId);
         return tree;

@@ -35,6 +35,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .authorizeHttpRequests(request -> {
+                    request
+                            .mvcMatchers(HttpMethod.GET,
+                                    "/favicon.ico",
+                                    "/doc.html",
+                                    "/v3/**",
+                                    "/swagger-resources/**",
+                                    "/webjars/**",
+                                    "/auth/test"
+                            ).permitAll()
+                            .mvcMatchers(HttpMethod.POST,
+                                    "/auth/login",
+                                    "/auth/register"
+                            ).permitAll()
+                            .mvcMatchers("/client/**", "/department/**", "/menu/**", "/role/**", "/user/**").permitAll()
+                            .anyRequest().authenticated();
+                })
                 .exceptionHandling(exception -> {
                     exception
                             .authenticationEntryPoint((HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) -> {
@@ -46,36 +63,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                 Result.response(response, res);
                             });
                 })
-                .authorizeHttpRequests(request -> {
-                    request
-                            .anyRequest().authenticated();
-                })
-                .csrf(csrf -> {
-                    csrf.disable();
-                })
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterAfter(new TokenAuthorizationFilter(), SecurityContextPersistenceFilter.class)
-        ;
-    }
-
-    /**
-     * 路径忽略
-     */
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web
-                .ignoring()
-                .antMatchers(
-                        HttpMethod.GET,
-                        "/favicon.ico",
-                        "/doc.html",
-                        "/v3/**",
-                        "/swagger-resources/**",
-                        "/webjars/**",
-                        "/auth/test"
-                )
-                .antMatchers(HttpMethod.POST,  "/auth/login", "/auth/register")
-        ;
-
+                .requestCache().disable()
+                .csrf().disable()
+                .sessionManagement().disable();
     }
 }
