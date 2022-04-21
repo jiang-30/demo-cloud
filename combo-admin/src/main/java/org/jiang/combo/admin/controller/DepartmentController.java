@@ -33,19 +33,12 @@ public class DepartmentController {
     @ApiOperation("查询部门列表（树形）")
     @GetMapping("/tree")
 //    @PreAuthorize("hasAuthority('get:department/tree')")
-    public List<Department> getTree(Integer pId) {
-        List<Department> tree = departmentService.getTree(pId);
+    public List<Department> getTree() {
+        List<Department> tree = departmentService.getTree();
         return tree;
     }
 
-    @ApiOperation("查询部门列表（全部）")
-    @GetMapping("/list")
-    public List<Department> getTree() {
-        List<Department> list =  departmentService.list();
-        return list;
-    }
 
-    @ApiOperationSupport(order = 1)
     @ApiOperation("查询部门详情")
     @GetMapping("/{id}")
     public Department get(@PathVariable Integer id) {
@@ -53,15 +46,13 @@ public class DepartmentController {
         return entity;
     }
 
-    @ApiOperationSupport(order = 1)
     @ApiOperation("新建部门")
     @PostMapping("")
-    public boolean create(Department entity) {
+    public boolean create(@RequestBody Department entity) {
         boolean b = departmentService.save(entity);
         return b;
     }
 
-    @ApiOperationSupport(order = 1)
     @ApiOperation("修改部门")
     @PutMapping("")
     public boolean update(Department entity) {
@@ -69,13 +60,13 @@ public class DepartmentController {
         return b;
     }
 
-    @ApiOperationSupport(order = 1)
-    @ApiOperation("删除部门")
-    @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable Integer id) {
-        boolean b = departmentService.removeById(id);
-        return b;
-    }
+//    @ApiOperationSupport(order = 1)
+//    @ApiOperation("删除部门")
+//    @DeleteMapping("/{id}")
+//    public boolean delete(@PathVariable Integer id) {
+//        boolean b = departmentService.removeById(id);
+//        return b;
+//    }
 
 }
 

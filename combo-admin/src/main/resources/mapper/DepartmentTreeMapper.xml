@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jiang.combo.admin.mapper.DepartmentTreeMapper">
+
+    <resultMap id="BaseResultMap" type="org.jiang.combo.admin.model.DepartmentTree">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="ancestorId" column="ancestor_id" jdbcType="BIGINT"/>
+            <result property="descendantId" column="descendant_id" jdbcType="BIGINT"/>
+            <result property="deep" column="deep" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,ancestor_id,descendant_id,
+        deep
+    </sql>
+</mapper>

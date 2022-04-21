@@ -1,23 +1,18 @@
 package org.jiang.combo.admin.mapper;
 
-import org.apache.ibatis.annotations.Param;
 import org.jiang.combo.admin.model.Department;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import java.util.List;
-
 /**
- * <p>
- * 平台 Mapper 接口
- * </p>
- *
- * @author combo
- * @since 2022-01-21
- */
+* @author jiangbo
+* @description 针对表【s_department(组织机构)】的数据库操作Mapper
+* @createDate 2022-04-20 21:52:35
+* @Entity org.jiang.combo.admin.model.Department
+*/
 public interface DepartmentMapper extends BaseMapper<Department> {
 
-    List<Department> getTree(@Param("pId") Integer pId);
-
-    List<Department> selectByNameTrueOrderByUpdatedTime();
-
 }
+
+
+
+

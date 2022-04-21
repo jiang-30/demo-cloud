@@ -66,20 +66,30 @@ CREATE TABLE `r_user_platform` (
  */
 drop table if EXISTS `s_department`;
 CREATE TABLE `s_department` (
-    `id` int NOT NULL AUTO_INCREMENT COMMENT '主键id',
+    `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键id',
     `created_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) COMMENT '创建时间',
+    `created_by` bigint DEFAULT NULL COMMENT '创建人',
     `updated_time` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6) COMMENT '更新时间',
-    `created_by` int DEFAULT NULL COMMENT '创建人',
-    `updated_by` int DEFAULT NULL COMMENT '更新人',
-    `deleted_flag` char(1) NOT NULL DEFAULT '0' COMMENT '删除状态: 1 已删；0 未删',
-    `name` varchar(20) NOT NULL COMMENT '部门名称',
-    `description` varchar(255) NOT NULL COMMENT '部门描述',
-    `sort` int NOT NULL COMMENT '排序',
-    `status` char(1) NOT NULL DEFAULT '1' COMMENT '状态: 1 启用；0 禁用',
-    `parent_id` int DEFAULT NULL COMMENT '父ID',
+    `updated_by` bigint DEFAULT NULL COMMENT '更新人',
+    `scope_department` bigint DEFAULT NULL COMMENT '数据权限',
+    `is_deleted` char(1) NOT NULL DEFAULT '0' COMMENT '删除状态: 1 已删；0 未删',
+    `parent_id` bigint DEFAULT NULL COMMENT '父ID',
+    `title` varchar(20) NOT NULL COMMENT '名称',
+    `description` varchar(255) DEFAULT NULL COMMENT '描述',
+    `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+    `sort` int DEFAULT 1 COMMENT '排序',
+    `is_enabled` char(1) NOT NULL DEFAULT '1' COMMENT '状态: 1 启用；0 禁用',
     PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT'平台';
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT'组织机构';
 
+drop table if EXISTS `r_department_tree`;
+CREATE TABLE `r_department_tree` (
+    `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键id',
+    `ancestor_id` bigint NOT NULL COMMENT '祖先ID',
+    `descendant_id` bigint NOT NULL COMMENT '当前ID',
+    `deep` int NOT NULL COMMENT '深度',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT'组织机构树结构关联';
 
 /**
  * 角色表

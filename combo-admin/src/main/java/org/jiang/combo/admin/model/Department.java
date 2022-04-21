@@ -1,80 +1,107 @@
 package org.jiang.combo.admin.model;
 
-import com.baomidou.mybatisplus.annotation.*;
-
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
- * <p>
- * 平台
- * </p>
- *
- * @author combo
- * @since 2022-01-21
+ * 组织机构
+ * @TableName s_department
  */
-@Getter
-@Setter
-@TableName("s_department")
-@ApiModel(value = "Department对象", description = "平台")
-public class Department {
-
-    @ApiModelProperty("主键id")
+@TableName(value ="s_department")
+@Data
+public class Department implements Serializable {
+    /**
+     * 主键id
+     */
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
-    @ApiModelProperty("创建时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH-mm-ss")
-    @TableField(value = "created_time", insertStrategy = FieldStrategy.NEVER, updateStrategy = FieldStrategy.NEVER)
+    /**
+     * 创建时间
+     */
+    @TableField(value = "created_time")
     private LocalDateTime createdTime;
 
-    @ApiModelProperty("更新时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH-mm-ss")
-    @TableField(value = "updated_time", insertStrategy = FieldStrategy.NEVER, updateStrategy = FieldStrategy.NEVER)
+    /**
+     * 创建人
+     */
+    @TableField(value = "created_by")
+    private Long createdBy;
+
+    /**
+     * 更新时间
+     */
+    @TableField(value = "updated_time")
     private LocalDateTime updatedTime;
 
-    @ApiModelProperty("创建人")
-    @TableField(value = "created_by", fill = FieldFill.INSERT)
-    private Integer createdBy;
+    /**
+     * 更新人
+     */
+    @TableField(value = "updated_by")
+    private Long updatedBy;
 
-    @ApiModelProperty("更新人")
-    @TableField(value = "updated_by", fill = FieldFill.INSERT_UPDATE)
-    private Integer updatedBy;
+    /**
+     * 数据权限
+     */
+    @TableField(value = "scope_department")
+    private Long scopeDepartment;
 
-    @ApiModelProperty("删除状态: 1 已删；0 未删")
-    @JsonIgnore
-    @TableField(value = "deleted_flag", insertStrategy = FieldStrategy.NEVER, updateStrategy = FieldStrategy.NEVER, select = false)
-    @TableLogic
-    private String deletedFlag;
+    /**
+     * 是否删除: 1 已删；0 未删
+     */
+    @TableField(value = "is_deleted")
+    private String isDeleted;
 
-    @ApiModelProperty("部门名称")
-    @TableField("name")
-    private String name;
+    /**
+     * 父ID
+     */
+    @TableField(value = "parent_id")
+    private Long parentId;
 
-    @ApiModelProperty("部门描述")
-    @TableField("description")
+    /**
+     * 名称
+     */
+    @TableField(value = "title")
+    private String title;
+
+    /**
+     * 描述
+     */
+    @TableField(value = "description")
     private String description;
 
-    @ApiModelProperty("排序")
-    @TableField("sort")
-    @OrderBy(asc = true)
+    /**
+     * 备注
+     */
+    @TableField(value = "remark")
+    private String remark;
+
+    /**
+     * 排序
+     */
+    @TableField(value = "sort")
     private Integer sort;
 
-    @ApiModelProperty("状态: 1 启用；0 禁用")
-    @TableField(value = "status", insertStrategy = FieldStrategy.NOT_EMPTY, updateStrategy = FieldStrategy.NOT_EMPTY)
-    private String status;
+    /**
+     * 是否启用: 1 启用；0 禁用
+     */
+    @TableField(value = "is_enabled")
+    private String isEnabled;
 
-    @ApiModelProperty("父ID")
-    @TableField("parent_id")
-    private Integer parentId;
-
+    /**
+     * 子级
+     */
     @TableField(exist = false)
     private List<Department> children;
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
+
 }

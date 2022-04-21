@@ -6,19 +6,16 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.List;
 
 /**
- * <p>
- * 平台 服务类
- * </p>
- *
- * @author combo
- * @since 2022-01-21
- */
+* @author jiangbo
+* @description 针对表【s_department(组织机构)】的数据库操作Service
+* @createDate 2022-04-20 21:52:35
+*/
 public interface DepartmentService extends IService<Department> {
 
     /**
+     * 查询树形结构
      *
-     * @param pId
      * @return
      */
-    List<Department> getTree(Integer pId);
+    List<Department> getTree();
 }
