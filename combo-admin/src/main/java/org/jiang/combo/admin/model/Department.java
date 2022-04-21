@@ -1,9 +1,7 @@
 package org.jiang.combo.admin.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,7 +18,7 @@ public class Department implements Serializable {
     /**
      * 主键id
      */
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
@@ -56,6 +54,7 @@ public class Department implements Serializable {
     /**
      * 是否删除: 1 已删；0 未删
      */
+    @TableLogic
     @TableField(value = "is_deleted")
     private String isDeleted;
 
