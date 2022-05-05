@@ -46,6 +46,7 @@ public class AuthController {
             throw new Exception("用户已存在");
         }
 
+
         User user = new User();
         user.setPassword(passwordEncoder.encode(registerUser.getPassword()));
         user.setUsername(registerUser.getUsername());
