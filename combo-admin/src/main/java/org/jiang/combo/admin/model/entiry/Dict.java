@@ -1,4 +1,4 @@
-package org.jiang.combo.admin.model;
+package org.jiang.combo.admin.model.entiry;
 
 import com.baomidou.mybatisplus.annotation.*;
 
@@ -11,35 +11,32 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
  * <p>
- * 登录用户信息表
+ * 字典
  * </p>
  *
  * @author combo
  * @since 2022-01-21
  */
-
-@ApiModel(value = "User对象", description = "登录用户信息表")
-@TableName("s_user")
 @Getter
 @Setter
-@ToString
-public class User {
+@TableName("s_dict")
+@ApiModel(value = "Dict对象", description = "字典")
+public class Dict {
 
     @ApiModelProperty("主键id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     @ApiModelProperty("创建时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH-mm-ss")
     @TableField(value = "created_time", insertStrategy = FieldStrategy.NEVER, updateStrategy = FieldStrategy.NEVER)
     private LocalDateTime createdTime;
 
     @ApiModelProperty("更新时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH-mm-ss")
     @TableField(value = "updated_time", insertStrategy = FieldStrategy.NEVER, updateStrategy = FieldStrategy.NEVER)
     private LocalDateTime updatedTime;
 
@@ -57,32 +54,23 @@ public class User {
     @TableLogic
     private String deletedFlag;
 
-    @ApiModelProperty("用户名")
-    @TableField("username")
-    private String username;
+    @ApiModelProperty("字典名称")
+    @TableField("name")
+    private String name;
 
-    @ApiModelProperty("登录密码")
-    @JsonIgnore
-    @TableField("password")
-    private String password;
+    @ApiModelProperty("字典标识")
+    @TableField("code")
+    private String code;
 
-    @ApiModelProperty("邮箱")
-    @TableField("email")
-    private String email;
-
-    @ApiModelProperty("手机号码")
-    @TableField("phone")
-    private String phone;
-
-    @ApiModelProperty("部门ID")
-    @TableField("department_id")
-    private Integer departmentId;
+    @ApiModelProperty("字典描述")
+    @TableField("description")
+    private String description;
 
     @ApiModelProperty("状态: 1 启用；0 禁用")
     @TableField(value = "status", insertStrategy = FieldStrategy.NOT_EMPTY, updateStrategy = FieldStrategy.NOT_EMPTY)
     private String status;
 
-    @ApiModelProperty("角色")
+    @ApiModelProperty("字典项")
     @TableField(exist = false)
-    private List<Role> roles;
+    private List<DictItem> items;
 }

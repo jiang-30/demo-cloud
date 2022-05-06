@@ -3,13 +3,10 @@ package org.jiang.combo.admin.common.filter;
 import lombok.SneakyThrows;
 import org.jiang.combo.admin.common.utils.JwtUtil;
 import org.jiang.combo.admin.common.utils.RedisUtil;
-import org.jiang.combo.admin.model.User;
-import org.jiang.combo.admin.service.AuthService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.annotation.Resource;

@@ -1,4 +1,4 @@
-package org.jiang.combo.admin.model;
+package org.jiang.combo.admin.model.entiry;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -8,35 +8,29 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 组织机构树结构关联
- * @TableName r_department_tree
+ * 角色菜单关联表
+ * @TableName r_role_menu
  */
-@TableName(value ="r_department_tree")
+@TableName(value ="r_role_menu")
 @Data
-public class DepartmentTree implements Serializable {
+public class RoleMenu implements Serializable {
     /**
      * 主键id
      */
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
     /**
-     * 祖先ID
+     * 角色id
      */
-    @TableField(value = "ancestor_id")
-    private Long ancestorId;
+    @TableField(value = "role_id")
+    private Integer roleId;
 
     /**
-     * 当前ID
+     * 菜单id
      */
-    @TableField(value = "descendant_id")
-    private Long descendantId;
-
-    /**
-     * 深度
-     */
-    @TableField(value = "deep")
-    private Integer deep;
+    @TableField(value = "menu_id")
+    private Integer menuId;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

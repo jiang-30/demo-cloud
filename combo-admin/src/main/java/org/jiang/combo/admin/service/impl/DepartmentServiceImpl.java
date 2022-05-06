@@ -2,9 +2,10 @@ package org.jiang.combo.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.jiang.combo.admin.model.Department;
+import org.jiang.combo.admin.model.entiry.Department;
 import org.jiang.combo.admin.service.DepartmentService;
 import org.jiang.combo.admin.mapper.DepartmentMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
     public List<Department> getTree() {
         QueryWrapper<Department> queryWrapper = new QueryWrapper<>();
 //        queryWrapper.eq("is_enabled", "1");
+//        BeanUtils.copyProperties();
+
         List<Department> list = list(queryWrapper);
         List<Department> tree = new ArrayList<>();
         List<Department> rootList = list.stream().filter(item -> item.getParentId() == null).collect(Collectors.toList());

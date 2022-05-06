@@ -3,7 +3,7 @@
 <mapper namespace="org.jiang.combo.admin.mapper.UserMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="org.jiang.combo.admin.model.User">
+    <resultMap id="BaseResultMap" type="org.jiang.combo.admin.model.entiry.User">
         <id column="id" property="id" />
         <result column="created_time" property="createdTime" />
         <result column="updated_time" property="updatedTime" />
@@ -18,8 +18,8 @@
         <result column="status" property="status" />
     </resultMap>
 
-    <resultMap id="UserResultMap" extends="BaseResultMap" type="org.jiang.combo.admin.model.User">
-        <collection property="roles" ofType="org.jiang.combo.admin.model.Role">
+    <resultMap id="UserResultMap" extends="BaseResultMap" type="org.jiang.combo.admin.model.entiry.User">
+        <collection property="roles" ofType="org.jiang.combo.admin.model.entiry.Role">
             <id column="role_id" property="id" />
             <result column="role_created_time" property="createdTime" />
             <result column="role_updated_time" property="updatedTime" />
@@ -75,7 +75,7 @@
     </select>
 
 
-    <select id="getProfile" resultType="org.jiang.combo.admin.model.User">
+    <select id="getProfile" resultType="org.jiang.combo.admin.model.entiry.User">
 
     </select>
 

@@ -1,4 +1,4 @@
-package org.jiang.combo.admin.model;
+package org.jiang.combo.admin.model.entiry;
 
 import com.baomidou.mybatisplus.annotation.*;
 

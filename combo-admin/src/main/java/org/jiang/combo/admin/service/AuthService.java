@@ -1,6 +1,6 @@
 package org.jiang.combo.admin.service;
 
-import org.jiang.combo.admin.model.User;
+import org.jiang.combo.admin.model.entiry.User;
 import org.jiang.combo.admin.model.bo.SecurityUserDetails;
 import org.jiang.combo.admin.model.dto.AuthDto;
 

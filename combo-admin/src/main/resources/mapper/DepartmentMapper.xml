@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.jiang.combo.admin.mapper.DepartmentMapper">
 
-    <resultMap id="BaseResultMap" type="org.jiang.combo.admin.model.Department">
+    <resultMap id="BaseResultMap" type="org.jiang.combo.admin.model.entiry.Department">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
             <result property="createdBy" column="created_by" jdbcType="BIGINT"/>

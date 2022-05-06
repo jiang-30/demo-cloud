@@ -1,8 +1,8 @@
 package org.jiang.combo.admin.model.dto;
 
 import lombok.Data;
-import org.jiang.combo.admin.model.Role;
-import org.jiang.combo.admin.model.User;
+import org.jiang.combo.admin.model.entiry.Role;
+import org.jiang.combo.admin.model.entiry.User;
 
 import java.util.List;
 

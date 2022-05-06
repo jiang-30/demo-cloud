@@ -1,29 +1,27 @@
-package org.jiang.combo.admin.model;
+package org.jiang.combo.admin.model.entiry;
 
 import com.baomidou.mybatisplus.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * <p>
- * 平台
+ * 系统菜单
  * </p>
  *
  * @author combo
  * @since 2022-01-21
  */
-@Getter
-@Setter
-@TableName("s_platform")
-@ApiModel(value = "Platform对象", description = "平台")
-public class Platform {
+@Data
+@TableName("s_menu")
+@ApiModel(value = "Menu对象", description = "系统菜单")
+public class Menu {
 
     @ApiModelProperty("主键id")
     @TableId(value = "id", type = IdType.AUTO)
@@ -48,30 +46,59 @@ public class Platform {
     private Integer updatedBy;
 
     @ApiModelProperty("删除状态: 1 已删；0 未删")
-    @JsonIgnore
     @TableField(value = "deleted_flag", insertStrategy = FieldStrategy.NEVER, updateStrategy = FieldStrategy.NEVER)
     @TableLogic
     private String deletedFlag;
 
-    @ApiModelProperty("平台名称")
+    @ApiModelProperty("名称")
     @TableField("name")
     private String name;
 
-    @ApiModelProperty("平台标识")
-    @TableField("code")
-    private String code;
-
-    @ApiModelProperty("平台描述")
+    @ApiModelProperty("描述")
     @TableField("description")
     private String description;
 
+    @ApiModelProperty("菜单图标")
+    @TableField("icon")
+    private String icon;
+
+    @ApiModelProperty("路由路径")
+    @TableField("path")
+    private String path;
+
+    @ApiModelProperty("组件路径")
+    @TableField("component")
+    private String component;
+
+    @ApiModelProperty("页面布局类型,打开新窗口")
+    @TableField("target")
+    private String target;
+
+    @ApiModelProperty("类型：1 目录，2 菜单；3 按钮")
+    @TableField("type")
+    private String type;
+
+    @ApiModelProperty("是否在菜单栏显示：1 显示 0 不显示")
+    @TableField("visible")
+    private String visible;
+
+    @ApiModelProperty("组件是否缓存: 1 缓存；0 不缓存")
+    @TableField("keep_alive")
+    private String keepAlive;
+
     @ApiModelProperty("排序")
-    @OrderBy(asc = true)
     @TableField("sort")
     private Integer sort;
 
-    @ApiModelProperty("状态: 1 启用；0 禁用")
-    @TableField(value = "status", insertStrategy = FieldStrategy.NOT_EMPTY, updateStrategy = FieldStrategy.NOT_EMPTY)
-    private String status;
+    @ApiModelProperty("权限标识")
+    @TableField("permission")
+    private String permission;
 
+    @ApiModelProperty("父id")
+    @TableField("parent_id")
+    private Integer parentId;
+
+    @ApiModelProperty("子菜单")
+    @TableField(exist = false)
+    private List<Menu> children;
 }

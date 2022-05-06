@@ -1,13 +1,8 @@
 package org.jiang.combo.admin.mapper;
 
 import org.apache.ibatis.annotations.Param;
-import org.jiang.combo.admin.model.Dict;
-import org.jiang.combo.admin.model.Role;
-import org.jiang.combo.admin.model.User;
+import org.jiang.combo.admin.model.entiry.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.jiang.combo.admin.model.dto.UserDto;
-
-import java.util.List;
 
 /**
  * <p>

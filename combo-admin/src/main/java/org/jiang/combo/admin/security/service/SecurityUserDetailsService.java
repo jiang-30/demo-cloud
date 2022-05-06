@@ -1,9 +1,8 @@
 package org.jiang.combo.admin.security.service;
 
-import org.jiang.combo.admin.model.User;
+import org.jiang.combo.admin.model.entiry.User;
 import org.jiang.combo.admin.security.AuthUser;
 import org.jiang.combo.admin.service.AuthService;
-import org.jiang.combo.admin.service.UserService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetailsService;

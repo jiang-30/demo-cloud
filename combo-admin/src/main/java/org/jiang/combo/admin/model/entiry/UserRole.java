@@ -1,4 +1,4 @@
-package org.jiang.combo.admin.model;
+package org.jiang.combo.admin.model.entiry;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -8,12 +8,12 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 角色菜单关联表
- * @TableName r_role_menu
+ * 用户角色关联表
+ * @TableName r_user_role
  */
-@TableName(value ="r_role_menu")
+@TableName(value ="r_user_role")
 @Data
-public class RoleMenu implements Serializable {
+public class UserRole implements Serializable {
     /**
      * 主键id
      */
@@ -21,16 +21,16 @@ public class RoleMenu implements Serializable {
     private Integer id;
 
     /**
+     * 用户id
+     */
+    @TableField(value = "user_id")
+    private Integer userId;
+
+    /**
      * 角色id
      */
     @TableField(value = "role_id")
     private Integer roleId;
-
-    /**
-     * 菜单id
-     */
-    @TableField(value = "menu_id")
-    private Integer menuId;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

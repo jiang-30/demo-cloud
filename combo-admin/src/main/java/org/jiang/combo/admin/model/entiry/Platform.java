@@ -1,4 +1,4 @@
-package org.jiang.combo.admin.model;
+package org.jiang.combo.admin.model.entiry;
 
 import com.baomidou.mybatisplus.annotation.*;
 
@@ -13,7 +13,7 @@ import lombok.Setter;
 
 /**
  * <p>
- * 角色
+ * 平台
  * </p>
  *
  * @author combo
@@ -21,21 +21,21 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName("s_role")
-@ApiModel(value = "Role对象", description = "角色")
-public class Role {
+@TableName("s_platform")
+@ApiModel(value = "Platform对象", description = "平台")
+public class Platform {
 
     @ApiModelProperty("主键id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     @ApiModelProperty("创建时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH-mm-ss")
     @TableField(value = "created_time", insertStrategy = FieldStrategy.NEVER, updateStrategy = FieldStrategy.NEVER)
     private LocalDateTime createdTime;
 
     @ApiModelProperty("更新时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH-mm-ss")
     @TableField(value = "updated_time", insertStrategy = FieldStrategy.NEVER, updateStrategy = FieldStrategy.NEVER)
     private LocalDateTime updatedTime;
 
@@ -48,31 +48,30 @@ public class Role {
     private Integer updatedBy;
 
     @ApiModelProperty("删除状态: 1 已删；0 未删")
+    @JsonIgnore
     @TableField(value = "deleted_flag", insertStrategy = FieldStrategy.NEVER, updateStrategy = FieldStrategy.NEVER)
     @TableLogic
-    @JsonIgnore
     private String deletedFlag;
 
-    @ApiModelProperty("角色名称")
+    @ApiModelProperty("平台名称")
     @TableField("name")
     private String name;
 
-    @ApiModelProperty("角色标识")
+    @ApiModelProperty("平台标识")
     @TableField("code")
     private String code;
 
-    @ApiModelProperty("角色描述")
+    @ApiModelProperty("平台描述")
     @TableField("description")
     private String description;
 
     @ApiModelProperty("排序")
-    @TableField("sort")
     @OrderBy(asc = true)
+    @TableField("sort")
     private Integer sort;
 
     @ApiModelProperty("状态: 1 启用；0 禁用")
     @TableField(value = "status", insertStrategy = FieldStrategy.NOT_EMPTY, updateStrategy = FieldStrategy.NOT_EMPTY)
     private String status;
-
 
 }

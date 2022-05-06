@@ -1,6 +1,6 @@
 package org.jiang.combo.admin.service.impl;
 
-import org.jiang.combo.admin.model.Menu;
+import org.jiang.combo.admin.model.entiry.Menu;
 import org.jiang.combo.admin.mapper.MenuMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.jiang.combo.admin.service.MenuService;

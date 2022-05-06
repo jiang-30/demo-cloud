@@ -1,6 +1,6 @@
 package org.jiang.combo.admin.service.impl;
 
-import org.jiang.combo.admin.model.Platform;
+import org.jiang.combo.admin.model.entiry.Platform;
 import org.jiang.combo.admin.mapper.PlatformMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.jiang.combo.admin.service.PlatformService;

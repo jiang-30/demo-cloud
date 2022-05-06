@@ -3,7 +3,7 @@
 <mapper namespace="org.jiang.combo.admin.mapper.DictItemMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="org.jiang.combo.admin.model.DictItem">
+    <resultMap id="BaseResultMap" type="org.jiang.combo.admin.model.entiry.DictItem">
         <id column="id" property="id" />
         <result column="created_time" property="createdTime" />
         <result column="updated_time" property="updatedTime" />

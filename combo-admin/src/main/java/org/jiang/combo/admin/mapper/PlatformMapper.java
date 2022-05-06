@@ -1,6 +1,6 @@
 package org.jiang.combo.admin.mapper;
 
-import org.jiang.combo.admin.model.Platform;
+import org.jiang.combo.admin.model.entiry.Platform;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

@@ -1,7 +1,6 @@
 package org.jiang.combo.admin.service;
 
-import org.apache.ibatis.annotations.Param;
-import org.jiang.combo.admin.model.Role;
+import org.jiang.combo.admin.model.entiry.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;

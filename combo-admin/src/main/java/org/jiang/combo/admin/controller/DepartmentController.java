@@ -1,13 +1,11 @@
 package org.jiang.combo.admin.controller;
 
 
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.jiang.combo.admin.model.Department;
+import org.jiang.combo.admin.model.entiry.Department;
 import org.jiang.combo.admin.service.DepartmentService;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;

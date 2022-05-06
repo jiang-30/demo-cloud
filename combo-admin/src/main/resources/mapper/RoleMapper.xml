@@ -3,7 +3,7 @@
 <mapper namespace="org.jiang.combo.admin.mapper.RoleMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="org.jiang.combo.admin.model.Role">
+    <resultMap id="BaseResultMap" type="org.jiang.combo.admin.model.entiry.Role">
         <id column="id" property="id" />
         <result column="created_time" property="createdTime" />
         <result column="updated_time" property="updatedTime" />

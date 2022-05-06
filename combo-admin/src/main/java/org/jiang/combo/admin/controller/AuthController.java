@@ -5,9 +5,8 @@ import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.jiang.combo.admin.common.utils.JwtUtil;
 import org.jiang.combo.admin.common.utils.Result;
-import org.jiang.combo.admin.model.User;
+import org.jiang.combo.admin.model.entiry.User;
 import org.jiang.combo.admin.model.dto.AuthDto;
 import org.jiang.combo.admin.model.dto.UserLoginDto;
 import org.jiang.combo.admin.model.dto.UserRegisterDto;
@@ -18,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * 注册
