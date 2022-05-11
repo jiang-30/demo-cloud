@@ -34,6 +34,79 @@ public class AuthController {
     private final UserService userService;
     private final AuthService authService;
 
+    /**
+     * 用户登录 用户通过用户名和密码获取token和用户信息
+     */
+    @ApiOperationSupport(order = 2)
+    @ApiOperation("用户登录")
+    @PostMapping("/login")
+    public AuthDto login(@Valid @RequestBody UserLoginDto userLogin) throws Exception {
+
+        AuthDto auth = authService.getAuthByUsernameAndPassword(userLogin.getUsername(), userLogin.getPassword());
+
+        return auth;
+    }
+
+    /**
+     * 校验用户的accessToken 是否有效
+     */
+    @ApiOperationSupport(order = 4)
+    @ApiOperation("验证token有效性")
+    @PostMapping("/check")
+    public void check() {
+
+    }
+
+    /**
+     * 刷新token 通过 refreshToken 获取新的token
+     */
+    @ApiOperationSupport(order = 3)
+    @ApiOperation("刷新token")
+    @PostMapping("/refresh")
+    public Result<String> refresh(@RequestBody String refreshToken) {
+        return Result.success(refreshToken);
+    }
+
+    /**
+     * 删除用户登录信息 token有效性
+     */
+    @ApiOperation(value = "退出登录", tags = "退出登录", notes = "删除用户登录信息")
+    @ApiOperationSupport(order = 4)
+    @PostMapping("/logout")
+    public void logout() {
+
+    }
+
+    /**
+     * 用户权限信息 菜单、权限
+     */
+    @ApiOperationSupport(order = 5)
+    @ApiOperation("查询菜单信息")
+    @PostMapping("/menu")
+    public void menu() {
+
+    }
+
+    /**
+     * 当前用户角色包含的权限信息
+     */
+    @ApiOperationSupport(order = 5)
+    @ApiOperation("查询权限信息")
+    @PostMapping("/permission")
+    public void permission() {
+
+    }
+
+    /**
+     * 获取当前用户的基础信息 用户信息、角色信息、部门信息
+     */
+    @ApiOperationSupport(order = 5)
+    @ApiOperation("查询基础信息")
+    @PostMapping("/user")
+    public Authentication user(Authentication auth) {
+        return auth;
+    }
+
     @ApiOperationSupport(order = 1)
     @ApiOperation("用户注册")
     @PostMapping("/register")
@@ -55,78 +128,28 @@ public class AuthController {
     }
 
     /**
-     * 用户登录
-     * 用户通过用户名和密码获取token和用户信息
+     * 找回密码 修改用户密码
      */
-    @ApiOperationSupport(order = 2)
-    @ApiOperation("用户登录")
-    @PostMapping("/login")
-    public AuthDto login(@Valid @RequestBody UserLoginDto userLogin) throws Exception {
-
-        AuthDto auth = authService.getAuthByUsernameAndPassword(userLogin.getUsername(), userLogin.getPassword());
-
-        return auth;
-    }
-
-    /**
-     * 刷新token
-     * 通过 refreshToken 获取新的token
-     */
-    @ApiOperationSupport(order = 3)
-    @ApiOperation("刷新token")
-    @PostMapping("/refresh")
-    public Result<String> refresh(@RequestBody String refreshToken) {
-        return Result.success(refreshToken);
-    }
-
-    /**
-     * 校验用户的accessToken 是否有效
-     */
-    @ApiOperationSupport(order = 4)
-    @ApiOperation("验证token有效性")
-    @PostMapping("/check")
-    public void check() {
-
-    }
-
-    @ApiOperation(value = "退出登录", tags = "退出登录", notes = "删除用户登录信息")
-    @ApiOperationSupport(order = 4)
-    @PostMapping("/logout")
-    public void logout() {
+    @PostMapping("/user/password")
+    public void findPassword() {
 
     }
 
     /**
-     * 获取当前用户的基础信息
-     * 用户信息、角色信息
+     * 修改用户信息
+     * user 模块用户部分修改
      */
-    @ApiOperationSupport(order = 5)
-    @ApiOperation("查询基础信息")
-    @PostMapping("/user")
-    public Authentication user(Authentication auth) {
-        return auth;
-    }
-
-    /**
-     * 当前用户角色包含的权限信息
-     */
-    @ApiOperationSupport(order = 5)
-    @ApiOperation("查询权限信息")
-    @PostMapping("/permission")
-    public void permission() {
-
-    }
-
-    @ApiOperationSupport(order = 5)
-    @ApiOperation("查询菜单信息")
-    @PostMapping("/menu")
-    public void menu() {
-
-    }
-
     @PostMapping("/profile")
-    public void profile() {
+    public void updateUser() {
 
     }
 
+    /**
+     * 用户注销
+     * user 模块删除用户
+     */
+    @PostMapping("/user")
+    public void deleteUser() {
+
+    }
 }
