@@ -7,6 +7,7 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import org.jiang.combo.admin.model.entiry.Dict;
 import org.jiang.combo.admin.service.DictService;
 import org.springframework.web.bind.annotation.*;
@@ -22,68 +23,50 @@ import java.util.List;
  * @author combo
  * @since 2022-01-21
  */
-@Api(tags = "字典管理")
-@ApiSort(30)
+@Api(tags = "数据字典")
 @RestController
-@RequestMapping("/dict")
-public class DictController {
-    @Resource
-    DictService dictService;
+@RequestMapping("/dict/type")
+@RequiredArgsConstructor
+public class DictTypeController {
 
-    @ApiOperation("查询字典列表（分页）")
+    final DictService dictService;
+
+    @ApiOperation(value = "查询字典列表（全部）", notes = "全部类型及类型数据")
+    @GetMapping("/all")
+    public List<Dict> list() {
+        List<Dict> list =  dictService.list();
+        return list;
+    }
+
+    @ApiOperation(value = "查询字典类型列表（分页）")
     @GetMapping("/page")
     public IPage<Dict> page(Long current, Long size) {
         IPage<Dict> page =  dictService.page(new Page<>(current, size));
         return page;
     }
 
-    @ApiOperation("查询字典列表（全部）")
-    @GetMapping("/list")
-    public List<Dict> list() {
-        List<Dict> list =  dictService.list();
-        return list;
-    }
-
-    @ApiOperation("查询字典列表（全部并含字典项）")
-    @GetMapping("/list/items")
-    public List<Dict> listAndItems() {
-        List<Dict> list = dictService.getListItems();
-        return list;
-    }
-
-    @ApiOperation("查询字典详情（含字典项）")
-    @GetMapping("/items/{id}")
-    public Dict entityAndItems(@PathVariable Integer id) {
-        Dict entity = dictService.getItems(id);
-        return entity;
-    }
-
-    @ApiOperationSupport(order = 1)
-    @ApiOperation("查询字典详情")
+    @ApiOperation(value = "查询字典类型详情")
     @GetMapping("/{id}")
     public Dict entity(@PathVariable Integer id) {
         Dict entity = dictService.getById(id);
         return entity;
     }
 
-    @ApiOperationSupport(order = 1)
-    @ApiOperation("新增字典")
+    @ApiOperation(value = "新增字典类型")
     @PostMapping("")
     public boolean  create(Dict entity) {
         boolean b =  dictService.save(entity);
         return b;
     }
 
-    @ApiOperationSupport(order = 1)
-    @ApiOperation("更新字典")
+    @ApiOperation(value = "更新字典类型")
     @PutMapping("")
     public boolean  update(Dict entity) {
         boolean b =  dictService.updateById(entity);
         return b;
     }
 
-    @ApiOperationSupport(order = 1)
-    @ApiOperation("删除字典")
+    @ApiOperation(value = "删除字典类型", notes = "字典类型，并删除当前类型下的字典数据")
     @DeleteMapping("/{id}")
     public boolean  delete(@PathVariable Integer id) {
         boolean b =  dictService.removeById(id);

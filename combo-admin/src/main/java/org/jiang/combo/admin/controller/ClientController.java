@@ -7,6 +7,7 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import org.jiang.combo.admin.model.entiry.Platform;
 import org.jiang.combo.admin.service.PlatformService;
 import org.springframework.web.bind.annotation.*;
@@ -22,55 +23,50 @@ import java.util.List;
  * @author combo
  * @since 2022-01-21
  */
-@Api(tags = "系统平台管理")
-@ApiSort(25)
+@Api(tags = "终端管理")
 @RestController
-@RequestMapping("/platform")
-public class PlatformController {
+@RequestMapping("/client")
+@RequiredArgsConstructor
+public class ClientController {
 
-    @Resource
-    PlatformService platformService;
+    final PlatformService platformService;
 
-    @ApiOperation("查询系统平台（分页）")
+    @ApiOperation(value = "查询终端（分页）")
     @GetMapping("/page")
     public IPage<Platform> getPage(Integer size, Integer current) {
         IPage page = platformService.page(new Page(current, size));
         return page;
     }
 
-    @ApiOperation("查询系统平台（全部）")
+    @ApiOperation(value = "查询终端（全部）")
     @GetMapping("/list")
     public List<Platform> getList() {
         List<Platform>  list = platformService.list();
         return list;
     }
 
-    @ApiOperationSupport(order = 1)
-    @ApiOperation("查询系统平台详情")
+    @ApiOperation(value = "查询终端详情")
     @GetMapping("/{id}")
     public Platform get(@PathVariable Integer id) {
         Platform entity = platformService.getById(id);
         return entity;
     }
 
-    @ApiOperationSupport(order = 1)
-    @ApiOperation("新建系统平台")
+    @ApiOperation(value = "新建终端")
     @PostMapping("")
     public boolean create(Platform entity) {
         boolean b = platformService.save(entity);
         return b;
     }
 
-    @ApiOperationSupport(order = 1)
-    @ApiOperation("更新系统平台")
+    @ApiOperation(value = "更新终端")
     @PutMapping("")
     public boolean update(Platform entity) {
         boolean b = platformService.updateById(entity);
         return b;
     }
 
-    @ApiOperationSupport(order = 1)
-    @ApiOperation("删除系统平台")
+    @ApiOperation(value = "删除终端")
     @DeleteMapping("/{id")
     public boolean delete(@PathVariable Integer id) {
         boolean b = platformService.removeById(id);

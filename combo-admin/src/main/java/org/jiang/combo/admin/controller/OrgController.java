@@ -4,6 +4,7 @@ package org.jiang.combo.admin.controller;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import org.jiang.combo.admin.model.entiry.Department;
 import org.jiang.combo.admin.service.DepartmentService;
 import org.springframework.web.bind.annotation.*;
@@ -20,52 +21,49 @@ import java.util.List;
  * @since 2022-01-21
  */
 
-@Api(tags="部门管理")
-@ApiSort(20)
+@Api(tags="组织管理")
 @RestController
 @RequestMapping("/department")
-public class DepartmentController {
+@RequiredArgsConstructor
+public class OrgController {
 
-    @Resource
-    DepartmentService departmentService;
+    final DepartmentService departmentService;
 
-    @ApiOperation("查询部门列表（树形）")
+
+    @ApiOperation(value = "查询组织列表（树形）")
     @GetMapping("/tree")
-//    @PreAuthorize("hasAuthority('get:department/tree')")
     public List<Department> getTree() {
         List<Department> tree = departmentService.getTree();
         return tree;
     }
 
-
-    @ApiOperation("查询部门详情")
+    @ApiOperation(value = "查询组织详情")
     @GetMapping("/{id}")
     public Department get(@PathVariable Integer id) {
         Department entity=  departmentService.getById(id);
         return entity;
     }
 
-    @ApiOperation("新建部门")
+    @ApiOperation(value = "新建组织")
     @PostMapping("")
     public boolean create(@RequestBody Department entity) {
         boolean b = departmentService.save(entity);
         return b;
     }
 
-    @ApiOperation("修改部门")
+    @ApiOperation(value = "修改组织")
     @PutMapping("")
     public boolean update(Department entity) {
         boolean b = departmentService.updateById(entity);
         return b;
     }
 
-//    @ApiOperationSupport(order = 1)
-//    @ApiOperation("删除部门")
-//    @DeleteMapping("/{id}")
-//    public boolean delete(@PathVariable Integer id) {
-//        boolean b = departmentService.removeById(id);
-//        return b;
-//    }
+    @ApiOperation(value = "删除组织")
+    @DeleteMapping("/{id}")
+    public boolean delete(@PathVariable Integer id) {
+        boolean b = departmentService.removeById(id);
+        return b;
+    }
 
 }
 
