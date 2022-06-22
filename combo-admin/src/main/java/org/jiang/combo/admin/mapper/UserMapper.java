@@ -1,7 +1,7 @@
 package org.jiang.combo.admin.mapper;
 
 import org.apache.ibatis.annotations.Param;
-import org.jiang.combo.admin.model.entiry.User;
+import org.jiang.combo.admin.model.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

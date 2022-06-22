@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.jiang.combo.admin.mapper.UserRoleMapper">
 
-    <resultMap id="BaseResultMap" type="org.jiang.combo.admin.model.entiry.UserRole">
+    <resultMap id="BaseResultMap" type="org.jiang.combo.admin.model.UserRole">
             <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="userId" column="user_id" jdbcType="INTEGER"/>
             <result property="roleId" column="role_id" jdbcType="INTEGER"/>

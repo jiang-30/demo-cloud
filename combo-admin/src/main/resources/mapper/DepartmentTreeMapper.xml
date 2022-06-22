@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.jiang.combo.admin.mapper.DepartmentTreeMapper">
 
-    <resultMap id="BaseResultMap" type="org.jiang.combo.admin.model.entiry.DepartmentTree">
+    <resultMap id="BaseResultMap" type="org.jiang.combo.admin.model.DepartmentTree">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="ancestorId" column="ancestor_id" jdbcType="BIGINT"/>
             <result property="descendantId" column="descendant_id" jdbcType="BIGINT"/>

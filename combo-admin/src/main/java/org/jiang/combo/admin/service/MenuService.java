@@ -1,6 +1,6 @@
 package org.jiang.combo.admin.service;
 
-import org.jiang.combo.admin.model.entiry.Menu;
+import org.jiang.combo.admin.model.Menu;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
