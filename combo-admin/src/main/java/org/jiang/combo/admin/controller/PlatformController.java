@@ -41,7 +41,7 @@ public class PlatformController {
     @ApiOperation("查询系统平台（全部）")
     @GetMapping("/list")
     public List<Platform> getList() {
-        List<Platform>  list = platformService.list();
+        List<Platform> list = platformService.list();
         return list;
     }
 

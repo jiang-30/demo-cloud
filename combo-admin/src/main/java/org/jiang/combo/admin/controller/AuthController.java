@@ -119,7 +119,7 @@ public class AuthController {
 
 
         User user = new User();
-        user.setPassword(passwordEncoder.encode(registerUser.getPassword()));
+                    user.setPassword(passwordEncoder.encode(registerUser.getPassword()));
         user.setUsername(registerUser.getUsername());
 
         boolean save = userService.save(user);
