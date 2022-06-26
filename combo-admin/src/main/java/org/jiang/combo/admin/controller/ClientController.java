@@ -3,16 +3,13 @@ package org.jiang.combo.admin.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.jiang.combo.admin.model.entiry.Platform;
+import org.jiang.combo.admin.model.Platform;
 import org.jiang.combo.admin.service.PlatformService;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -41,7 +38,7 @@ public class ClientController {
     @ApiOperation(value = "查询终端（全部）")
     @GetMapping("/list")
     public List<Platform> getList() {
-        List<Platform>  list = platformService.list();
+        List<Platform> list = platformService.list();
         return list;
     }
 

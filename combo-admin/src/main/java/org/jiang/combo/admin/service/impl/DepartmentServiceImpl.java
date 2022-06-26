@@ -2,10 +2,9 @@ package org.jiang.combo.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.jiang.combo.admin.model.entiry.Department;
+import org.jiang.combo.admin.model.Department;
 import org.jiang.combo.admin.service.DepartmentService;
 import org.jiang.combo.admin.mapper.DepartmentMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package org.jiang.combo.admin.service.impl;
 
-import org.jiang.combo.admin.model.entiry.Role;
+import org.jiang.combo.admin.model.Role;
 import org.jiang.combo.admin.mapper.RoleMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.jiang.combo.admin.service.RoleService;

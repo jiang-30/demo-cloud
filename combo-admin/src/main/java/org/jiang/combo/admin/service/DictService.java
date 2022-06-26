@@ -1,6 +1,6 @@
 package org.jiang.combo.admin.service;
 
-import org.jiang.combo.admin.model.entiry.Dict;
+import org.jiang.combo.admin.model.Dict;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;

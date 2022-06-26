@@ -2,8 +2,8 @@ package org.jiang.combo.admin.model.dto;
 
 import lombok.Data;
 import lombok.ToString;
-import org.jiang.combo.admin.model.entiry.Role;
-import org.jiang.combo.admin.model.entiry.User;
+import org.jiang.combo.admin.model.Role;
+import org.jiang.combo.admin.model.User;
 
 import java.util.List;
 

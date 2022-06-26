@@ -1,16 +1,13 @@
 package org.jiang.combo.admin.controller;
 
 
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.jiang.combo.admin.model.entiry.DictItem;
+import org.jiang.combo.admin.model.DictItem;
 import org.jiang.combo.admin.service.DictItemService;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
 
 /**
  * <p>

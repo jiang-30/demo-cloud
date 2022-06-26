@@ -2,7 +2,7 @@ package org.jiang.combo.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.RequiredArgsConstructor;
-import org.jiang.combo.admin.model.entiry.User;
+import org.jiang.combo.admin.model.User;
 import org.jiang.combo.admin.mapper.UserMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.jiang.combo.admin.service.UserService;

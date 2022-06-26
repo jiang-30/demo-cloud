@@ -1,8 +1,8 @@
 package org.jiang.combo.admin.common.utils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
+import org.jiang.combo.admin.common.enums.ResultCode;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -12,8 +12,8 @@ import java.io.IOException;
 public class Result<T> {
 
     private Integer code;
-    private String message;
-    private T data;
+    private String msg;
+    private Object data; // Object
 
 
     /**
@@ -22,16 +22,16 @@ public class Result<T> {
     public static Result success() {
         Result result = new Result();
         result.setCode(ResultCode.SUCCESS.getCode());
-        result.setMessage(ResultCode.SUCCESS.getMessage());
+        result.setMsg(ResultCode.SUCCESS.getMsg());
         result.setData(null);
 
         return result;
     }
 
-    public static <T> Result<T> success(T data) {
-        Result<T> result = new Result<T>();
+    public static Result success(Object data) {
+        Result result = new Result();
         result.setCode(ResultCode.SUCCESS.getCode());
-        result.setMessage(ResultCode.SUCCESS.getMessage());
+        result.setMsg(ResultCode.SUCCESS.getMsg());
         result.setData(data);
 
         return result;
@@ -43,37 +43,38 @@ public class Result<T> {
     public static Result fail(ResultCode resultCode) {
         Result result = new Result();
         result.setCode(resultCode.getCode());
-        result.setMessage(resultCode.getMessage());
+        result.setMsg(resultCode.getMsg());
         result.setData(null);
 
         return result;
     }
 
-    public static <T> Result<T> fail(ResultCode resultCode, T data) {
+    public static Result fail(ResultCode resultCode, Object data) {
         Result result = new Result();
         result.setCode(resultCode.getCode());
-        result.setMessage(resultCode.getMessage());
+        result.setMsg(resultCode.getMsg());
         result.setData(data);
 
         return result;
     }
 
-    public static Result fail(int code, String message) {
-        Result result = new Result();
-        result.setCode(code);
-        result.setMessage(message);
-
-        return result;
-    }
-
-    public static <T> Result<T> fail(int code, String message, T data) {
-        Result<T> result = new Result<T>();
-        result.setCode(code);
-        result.setMessage(message);
-        result.setData(data);
-
-        return result;
-    }
+//    public static Result fail(int code, String msg) {
+//        Result result = new Result();
+//        result.setCode(code);
+//        result.setMsg(msg);
+//        result.setData(null);
+//
+//        return result;
+//    }
+//
+//    public static  Result fail(int code, String msg, Object data) {
+//        Result result = new Result();
+//        result.setCode(code);
+//        result.setMsg(msg);
+//        result.setData(data);
+//
+//        return result;
+//    }
 
     /**
      * 响应
