@@ -3,6 +3,7 @@ package org.jiang.combo.admin.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jiang.combo.admin.common.utils.Result;
 import org.jiang.combo.admin.model.entiry.User;
 import org.jiang.combo.admin.model.dto.AuthDto;
@@ -10,6 +11,8 @@ import org.jiang.combo.admin.model.dto.UserLoginDto;
 import org.jiang.combo.admin.model.dto.UserRegisterDto;
 import org.jiang.combo.admin.service.AuthService;
 import org.jiang.combo.admin.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Api(tags="用户认证授权")
-@RestController
 @RequestMapping("/auth")
+@RestController
+@Slf4j
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -50,6 +54,7 @@ public class AuthController {
     @PostMapping("/login")
     public AuthDto login(@Valid @RequestBody UserLoginDto userLogin) throws Exception {
 
+        log.info("'djfj'");
         AuthDto auth = authService.getAuthByUsernameAndPassword(userLogin.getUsername(), userLogin.getPassword());
 
         return auth;
