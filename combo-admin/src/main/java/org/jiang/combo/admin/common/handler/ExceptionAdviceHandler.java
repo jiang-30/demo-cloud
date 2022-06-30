@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  * org.zalando
  * problem-spring-web
  * RestControllerAdvice
+ * MethodArgumentTypeMismatchException 控制器中参数类型错误
  */
 @ControllerAdvice
 public class ExceptionAdviceHandler {

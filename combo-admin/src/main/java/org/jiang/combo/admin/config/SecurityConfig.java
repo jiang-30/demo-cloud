@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 @EnableWebSecurity(debug = false)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     final String[] getPermitPaths = { "/favicon.ico", "/doc.html", "/v3/**", "/swagger-resources/**",  "/webjars/**", "/auth/test" };
-    final String[] permitPaths = { "/auth/login", "/auth/register", "/client/**", "/department/**", "/menu/**", "/role/**", "/user/**" };
+    final String[] permitPaths = { "/auth/login", "/auth/register", "/client/**", "/department/**", "/menu/**", "/role/**", "/user/**", "/file/**" };
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
