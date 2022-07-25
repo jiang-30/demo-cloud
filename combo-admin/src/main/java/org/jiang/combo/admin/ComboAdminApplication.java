@@ -9,8 +9,8 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
 @EnableOpenApi
 @EnableConfigurationProperties(value= AppProperties.class)
 @SpringBootApplication
-public class AdminApplication {
+public class ComboAdminApplication {
     public static void main(String[] args) {
-        SpringApplication.run(AdminApplication.class, args);
+        SpringApplication.run(ComboAdminApplication.class, args);
     }
 }

@@ -30,7 +30,7 @@ import lombok.ToString;
 public class User {
 
     @ApiModelProperty("主键id")
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.ASSIGN_UUID)
     private Integer id;
 
     @ApiModelProperty("创建时间")

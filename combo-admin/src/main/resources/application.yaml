@@ -37,6 +37,10 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
 
 knife4j:
   enable: true
@@ -53,6 +57,7 @@ mybatis-plus:
       update-strategy: not_null
       where-strategy: not_empty
       table-underline: true
+      id-type: assign_uuid
   mapper-locations: classpath*:/mapper/**/*.xml
 
 jwt:
@@ -60,4 +65,11 @@ jwt:
   expiration: 1800
   token-head: Bearer
   header-name: Authorization
+
+
+minio:
+  endpoint: http://39.104.48.239:9000
+  accessKey: placename
+  secretKey: Placename@123456
+  bucketName: placename
 

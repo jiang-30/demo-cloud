@@ -34,7 +34,7 @@ public class MybatisPlusGenerator {
                                 .enableTableFieldAnnotation()
                                 .logicDeleteColumnName("deleted_flag")
                                 .addTableFills(new Column("created_by", FieldFill.INSERT),  new Column("updated_by", FieldFill.INSERT_UPDATE))
-                                .idType(IdType.AUTO)
+                                .idType(IdType.ASSIGN_UUID)
                             .controllerBuilder()
                                 .enableRestStyle()
                             .serviceBuilder()

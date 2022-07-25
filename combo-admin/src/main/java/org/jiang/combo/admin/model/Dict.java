@@ -55,6 +55,7 @@ public class Dict {
     private String deletedFlag;
 
     @ApiModelProperty("字典名称")
+
     @TableField("name")
     private String name;
 
